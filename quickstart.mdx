@@ -1,47 +1,75 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with CXSHS Game Hub in Minutes"
+sidebarTitle: "Quickstart"
+description: "Download the repository, extract the files, and open index.html — you can be playing one of 352 offline HTML games in under five minutes."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+Getting started with CXSHS Game Hub requires nothing more than a modern browser and a copy of the repository files on your device. There are no servers to configure, no packages to install, and no accounts to create. Follow the steps below and you will have the full 352-game library open and ready to play in just a few minutes.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
-
-## Prerequisites
-
-Before you begin, you must have:
-
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+## Full setup
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Download the repository">
+    Open the GitHub repository in your browser. Click the green **Code** button and select **Download ZIP**. Alternatively, if you have Git installed, clone it directly from a terminal:
 
     ```bash
-    npm install your-package
+    git clone https://github.com/cash90954-gif/cxshgmz.git
     ```
+
+    <Warning>
+      The repository is several gigabytes because all 352 game files have their assets (images, audio, scripts) fully inlined as base64 data URIs. Budget extra time and storage space for the download, especially on a slow connection.
+    </Warning>
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
-    ```
+  <Step title="Extract the ZIP">
+    If you downloaded the ZIP, locate it in your Downloads folder, right-click it, and select **Extract All** (Windows) or double-click to unarchive (macOS/ChromeOS). Choose a destination folder you can easily find again — your Desktop or Documents folder works well.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
+  <Step title="Open the launcher">
+    Inside the extracted folder, double-click **`index.html`** to open it in your default browser. You can also drag the file onto an open browser window or use **File → Open File** from the browser menu.
+
     ```
+    cxshgmz/
+    └── index.html   ← open this
+    ```
+
+    The hub launches with an animated boot sequence and immediately starts loading the game list from the `offline/` folder sitting next to it.
+  </Step>
+
+  <Step title="Browse the library">
+    Click **Games** in the left-side rail navigation to open the full game library grid. All 352 games are listed alphabetically by default. Use the search bar at the top of the page to filter by name, or switch to the **Favorites** or **Recent** tabs to narrow your view.
+  </Step>
+
+  <Step title="Play a game">
+    Click any game tile to open it in the current tab. The game loads inside a full-stage iframe — everything runs locally, no network requests are made. To open a game in a separate tab, hold **Ctrl** (or **Cmd** on macOS) while clicking the tile.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## Alternatives for restricted environments
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+<Tabs>
+  <Tab title="single-file.html">
+    If you are running the files through a code editor (like VS Code's Live Server), or you're in an environment where downloading the full multi-gigabyte ZIP isn't feasible, use **`single-file.html`** instead. This standalone launcher (version **v1.4.3.1**) does not bundle any game files — it lets you either fetch individual games from the web or import your own `.html` game files from your device.
+
+    ```
+    cxshgmz/
+    └── single-file.html   ← lighter alternative launcher
+    ```
+  </Tab>
+  <Tab title="file-input.html">
+    **`file-input.html`** is a minimal drag-and-drop HTML file runner. Drop any self-contained `.html` game file onto the page and it runs immediately — no library setup required. This is the fastest way to play a single game without going through the full launcher.
+  </Tab>
+  <Tab title="ChromeOS / Managed Devices">
+    Students on school-issued Chromebooks or other managed devices should check the dedicated environment guides in the `methods/` folder. `methods/chromeOS.md` covers ChromeOS-specific steps, while other files in that folder document approaches for various restricted setups.
+  </Tab>
+</Tabs>
+
+## Tips
+
+<Tip>
+  Press **`/`** from anywhere in the hub to instantly focus the search bar. If you are on the Home page it focuses the home search input; if you are on the Games library page it focuses the library search box.
 </Tip>
+
+<Info>
+  The hub remembers your theme choice, favorites, recently played games, and notes across sessions using `localStorage` — no account or sync service needed. All data stays on your device.
+</Info>

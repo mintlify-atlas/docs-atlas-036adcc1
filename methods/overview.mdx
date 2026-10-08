@@ -1,0 +1,60 @@
+---
+title: "Playing Games in Restricted School Environments"
+sidebarTitle: "Overview"
+description: "A guide to the methods that let you run CXSHS Game Hub offline games on school Chromebooks and locked-down networks."
+---
+
+School networks and managed Chromebooks frequently block gaming sites, restrict file downloads, and prevent access to `file://` URLs entirely. CXSHS Game Hub works around all of these restrictions because every game is a completely self-contained HTML file — no server, no CDN, and no internet connection required once the files are on your device. The methods in this section cover the most common restricted scenarios, from pasting code into an online editor to transferring the full game collection via Google Drive.
+
+<Warning>
+  The **Canvas LMS method** (uploading to Canvas Instructure and viewing the raw file URL) is currently **broken and unreliable** — Canvas-generated download links only work for the account that uploaded the file, making the game unplayable for anyone else. Do not rely on this method; use one of the working methods listed below instead.
+</Warning>
+
+## Choose Your Method
+
+<CardGroup cols={2}>
+  <Card title="ChromeOS & Chromebooks" icon="chrome" href="/methods/chromeos">
+    Four approaches for Chromebook users: online code editors, Google Drive zip transfer, Dropbox download, and the file:// fallback path.
+  </Card>
+  <Card title="Online Code Editors" icon="code" href="/methods/code-editors">
+    Paste `single-file.html` or `file-input.html` into W3Schools TryIt, Codecademy, CodeHS, or Code.org to run the launcher entirely in-browser.
+  </Card>
+  <Card title="File Input Runner" icon="file-arrow-up" href="/methods/file-input">
+    Use `file-input.html` to drag, drop, or paste individual game files into a minimal in-browser runner — no installation needed.
+  </Card>
+  <Card title="Single-File Launcher" icon="rocket" href="/tools/single-file">
+    `single-file.html` (v1.4.3.1) bundles the full game launcher into one portable file with JSZip support — the lightest download option.
+  </Card>
+</CardGroup>
+
+## Quick Decision Guide
+
+Not sure which method fits your situation? Use the accordion below to find the right approach.
+
+<Accordion title="I have a Chromebook and can't install anything">
+  Head to the **ChromeOS guide**. The easiest path is to open [W3Schools TryIt](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) or the [Codecademy HTML editor](https://www.codecademy.com/courses/learn-html-fundamentals/lessons/intro-to-html/exercises/intro), paste the full contents of `single-file.html` from the repository, and click **Run**. No downloads or installs required.
+
+  → [ChromeOS Guide](/methods/chromeos)
+</Accordion>
+
+<Accordion title="I can reach an online code editor (W3Schools, Codecademy, CodeHS…)">
+  Use the **Code Editors method**. Copy the source of `single-file.html` into any supported editor and run it. The full game launcher will appear in the preview pane. Save the code in Google Docs or OneNote so you don't have to copy it again next time.
+
+  → [Code Editors Guide](/methods/code-editors)
+</Accordion>
+
+<Accordion title="I can download files but file:// is blocked by my browser">
+  Use the **File Input runner**. Open `file-input.html` in an online code editor (or directly if `file://` partially works), then drag individual game `.html` files onto the drop zone or paste their source into the textarea.
+
+  → [File Input Guide](/methods/file-input)
+</Accordion>
+
+<Accordion title="I want the smallest possible download">
+  Download `single-file.html` (v1.4.3.1) — it is a self-contained launcher that bundles everything into one file and supports loading zipped game collections via JSZip. It's the fastest way to get the hub running on a personal device with limited storage or bandwidth.
+
+  → [Single-File Launcher](/tools/single-file)
+</Accordion>
+
+<Info>
+  All methods in this section rely on the fact that every CXSHS game is a **single, self-contained HTML file** with no external dependencies. Once you have a game file on your device or in a code editor, it runs entirely in your browser with zero network traffic.
+</Info>

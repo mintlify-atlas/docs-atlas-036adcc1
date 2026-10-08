@@ -1,0 +1,145 @@
+---
+title: "CXSHS Game Hub Interface: Tabs, Rail, and Built-in Apps"
+sidebarTitle: "Game Hub"
+description: "Explore the full CXSHS Game Hub UI — tabbed browsing, rail navigation, toolbar controls, built-in apps, and eight visual themes all in one offline launcher."
+---
+
+The CXSHS Game Hub launcher is built to feel like a mini browser dedicated entirely to offline gaming. When you open `index.html` you get a full-window shell with a left-side rail, a tab strip, a toolbar, and a main stage area that swaps between different views — Home, Games Library, Play, and App screens. Everything from the tab animations to the ambient particle effects is designed to make the experience feel polished even though it runs entirely on-device without an internet connection.
+
+<Note>
+  On the **Classic Halloween** theme, the hub opens with a dramatic boot animation: a lightning flash floods the screen, the body shakes, a burst of embers fires from the center, and a flock of animated bats flies across the stage. Ambient fog layers drift across the bottom of the screen throughout your session. All of these effects are disabled in the other seven color themes, and you can turn off effects entirely at any time from the Settings page or the **Effects** toggle in the rail.
+</Note>
+
+## Left rail navigation
+
+The narrow icon rail on the left edge of the shell is the primary navigation control. Each button routes you to a different view or built-in app.
+
+| Button | Destination | Notes |
+|---|---|---|
+| **Home** | Home view | Search bar, shortcuts, random game, review carousel |
+| **Games** | Games Library | Full 352-game grid with search, sort, Favorites, Recent |
+| **Music** | Music app | Offline audio player with mini-player in toolbar |
+| **Notes** | Notes app | `localStorage`-backed textarea notepad |
+| **Clock** | Clock app | Digital clock + stopwatch |
+| **All Apps** | All Apps view | Full grid of built-in and user-added shortcuts |
+| **Effects** | Toggle (no navigation) | Turns ambient animations and transitions on/off |
+| **Settings** | Settings app | Theme picker, effects toggle, online user count |
+
+The active rail button is highlighted with an accent-color glow indicator on its left edge. Hover any button to see a tooltip label.
+
+## Tab system
+
+The hub supports up to **8 simultaneous tabs**, each maintaining its own independent browsing history (Back and Forward work per-tab, just like a real browser). Tabs appear in the strip at the top of the main area.
+
+<Accordion title="Opening and closing tabs">
+  - Click the **＋** (New Tab) button at the right end of the tab strip to open a new tab starting at the Home view.
+  - Hold **Ctrl** (or **Cmd** on macOS) while clicking a game tile or rail button to open the destination in a new tab instead of navigating the current one.
+  - Click the **✕** on any tab to close it. If all tabs are closed, a fresh Home tab opens automatically.
+  - Middle-clicking a tab also closes it.
+  - When the 8-tab limit is reached, a toast notification reminds you to close a tab before opening another.
+</Accordion>
+
+<Accordion title="Per-tab history">
+  Every tab has its own Back / Forward history stack. The **Back** and **Forward** buttons in the toolbar control only the active tab. Navigating within a tab pushes a new entry; clicking Back or Forward steps through that tab's history with directional slide animations.
+</Accordion>
+
+## Toolbar
+
+The toolbar runs across the top of the main area, just below the tab strip.
+
+<CardGroup cols={2}>
+  <Card title="Back / Forward / Refresh" icon="arrow-left-right">
+    Navigate per-tab history with Back and Forward. Refresh reloads the current view — on the Games Library it re-runs the game list; on a Play view it restarts the game iframe and shows a toast confirmation.
+  </Card>
+  <Card title="Address bar" icon="search">
+    Displays the current location as a `cxshs://` URL (e.g. `cxshs://games/snake`). You can type directly in it: enter a game name, a view keyword (`home`, `games`, `music`, `notes`, `clock`, `settings`), or a partial game name to jump straight to the library with a pre-filled search.
+  </Card>
+  <Card title="Mini music player" icon="music">
+    Shown in the toolbar at all times. Displays the currently playing track name with Prev / Play-Pause / Next controls. Clicking the track name opens the full Music app. The player uses `BroadcastChannel` to stay in sync across multiple tabs.
+  </Card>
+  <Card title="Favorite & Fullscreen" icon="star">
+    The star button appears only when a game is open. Click it to add or remove the game from your Favorites. The fullscreen button expands the game iframe (or the entire hub) to fill the screen using the browser's Fullscreen API.
+  </Card>
+</CardGroup>
+
+## Views
+
+The hub has five distinct views that animate in and out of the main stage area:
+
+<Tabs>
+  <Tab title="Home">
+    The default landing screen. It features the animated CXSHS wordmark logo, a rotating tagline subtitle, a **Search** bar, a row of app shortcut icons, and a scrolling review carousel at the bottom. Two chip buttons show the number of games loaded and a **Play something random** button that launches a random game with an ember burst animation. On the Halloween theme, a countdown to Halloween (or "Happy Halloween!" on October 31st) appears as an additional chip.
+  </Tab>
+  <Tab title="Games Library">
+    A searchable, sortable grid of all 352 game tiles. Each tile shows the game's auto-generated gradient art (or a cover image if one has been assigned). Hover a tile to reveal the game name caption and a star Favorite button. The library has three tab filters — **All**, **Favorites**, and **Recent** — and a sort toggle between A–Z and Z–A. A **Random** button in the header picks a random visible game. You can also add custom cover art images that map to games by filename.
+  </Tab>
+  <Tab title="Play">
+    When you click a game, the hub navigates to the Play view: a full-stage `<iframe>` containing the game. The ambient effects, vignette, and footer are hidden while a game is playing so nothing distracts from gameplay. Refreshing in this view restarts the game; Back returns you to whatever you were viewing before.
+  </Tab>
+  <Tab title="App">
+    Built-in apps (Music, Notes, Clock, Settings, All Apps) render inside a padded content area with a page title. Only one app view exists in the DOM; its content is swapped each time you navigate to a different app.
+  </Tab>
+  <Tab title="Start (Setup)">
+    Shown when the hub cannot automatically locate the `offline/` folder — for example, when opened from a code editor's local server without the games directory next to it. Offers a folder picker and an individual file picker to load games manually.
+  </Tab>
+</Tabs>
+
+## Built-in apps
+
+<CardGroup cols={2}>
+  <Card title="Music" icon="music">
+    Pick audio files from your device (MP3, OGG, WAV, etc.) and they play offline via the Web Audio API. The toolbar's mini-player stays visible in every view so you can control playback without leaving a game. Track state is shared across all open tabs using `BroadcastChannel`.
+  </Card>
+  <Card title="Notes" icon="notebook-pen">
+    A simple full-height `<textarea>` that automatically saves everything you type to `localStorage` under the key `gl-notes`. Your notes persist between sessions and survive page refreshes. No formatting, no sync — just a reliable scratch pad.
+  </Card>
+  <Card title="Clock" icon="clock">
+    Displays the current local time in a large digital readout that updates every 100 ms. Below it is a stopwatch with Start/Stop and Reset controls. On the Halloween theme an additional Halloween countdown panel appears beneath the clock.
+  </Card>
+  <Card title="Settings" icon="settings">
+    Contains three sections: a **Theme** picker with all eight color themes rendered as preview swatches, an **Effects** toggle to disable animations and transitions (useful on slow Chromebooks), and a **Users Online** counter that shows how many browser tabs have the hub open on the current device (or across the whole site if a Firebase Realtime Database URL is configured in `index.html`).
+  </Card>
+</CardGroup>
+
+## Home page features
+
+The Home view packs several interactive elements into a single screen:
+
+- **Search bar** — type any game name and press Enter to jump to the Games Library with the query pre-filled. Press **`/`** from anywhere in the hub to focus this bar instantly.
+- **App shortcuts row** — quick-launch icons for Games, Music, Notes, Clock, Settings, and any user-added external link shortcuts. Icons bob gently in an idle animation.
+- **Play something random** (`ghost` icon on Halloween, `spark` on other themes) — picks a random game from the full library and opens it immediately, complete with an ember particle burst at the click point.
+- **Halloween countdown chip** — displays the number of days until October 31st, or "Happy Halloween!" on the day itself. Visible only on the Halloween theme.
+- **Review carousel** — an auto-scrolling strip of community review cards that pauses on hover.
+- **Rotating tagline** — the subtitle beneath the logo cycles through flavor lines every 5 seconds with a smooth fade-swap transition.
+
+## Themes
+
+The Settings app exposes eight color themes. Switching themes triggers a ripple wipe animation that expands outward from the click point and updates every CSS custom property and particle color instantly.
+
+| Theme | Accent color | Notes |
+|---|---|---|
+| Cherry | Rose pink | New UI default |
+| Pink | Hot pink | |
+| Teal | Cyan-teal | |
+| Green | Lime green | |
+| Blue | Cobalt blue | |
+| Purple | Violet | |
+| Black | Near-white | |
+| Classic Halloween | Pumpkin orange | Default on first load; enables exclusive decorations |
+
+<Note>
+  The **Classic Halloween** theme is the only theme that activates the fog layers, vignette overlay, boot lightning flash, bat animations, pumpkin favicon, spider-web SVG on the Home page, and the moon decoration. All Halloween-exclusive elements are hidden in every other theme via CSS attribute selectors.
+</Note>
+
+## Keyboard shortcut
+
+Press **`/`** at any time when focus is not inside a text field to instantly focus the search bar. On the Home view this focuses the home search input; on the Games Library page it focuses the library search box.
+
+<CardGroup cols={2}>
+  <Card title="Playing Games" icon="gamepad-2" href="/playing/overview">
+    Learn how to open, favorite, and manage games in the library.
+  </Card>
+  <Card title="Themes & Customization" icon="palette" href="/customization/themes">
+    Detailed guide to all eight themes, the effects toggle, and the calm mode setting.
+  </Card>
+</CardGroup>

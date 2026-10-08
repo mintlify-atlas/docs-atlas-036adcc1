@@ -1,0 +1,84 @@
+---
+title: "Use Online Code Editors to Run Games at School"
+sidebarTitle: "Code Editors"
+description: "Paste single-file.html or file-input.html into W3Schools, Codecademy, CodeHS, or Code.org to run CXSHS games with no downloads."
+---
+
+Online code editors are the most universally accessible method for playing CXSHS games in restricted environments. If your school blocks downloads, `file://` access, or most gaming sites, but leaves browser-based coding tools available, you can paste the self-contained `single-file.html` launcher directly into the editor's HTML pane and run the full game hub in the preview window — no extensions, no installs, and no IT permissions required.
+
+## When to Use This Method
+
+This method works best when:
+- You are on a managed **Chromebook** or school computer where file downloads are restricted
+- The CXSHS repository or gaming sites are **blocked by your school's web filter**
+- You have access to any of the supported online code editors listed below
+- You want a **quick session** without transferring files between devices
+
+## Supported Editors
+
+<CardGroup cols={2}>
+  <Card title="W3Schools TryIt Editor" icon="globe" href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default">
+    The most straightforward option. Paste HTML in the left pane, click **Run It**, and the game launcher appears on the right. No account required.
+  </Card>
+  <Card title="Codecademy HTML Editor" icon="graduation-cap" href="https://www.codecademy.com/courses/learn-html-fundamentals/lessons/intro-to-html/exercises/intro">
+    Accessible through any Codecademy course exercise. Replace the starter code with the launcher source and run it directly in the exercise environment.
+  </Card>
+  <Card title="CodeHS Editor" icon="code" href="https://codehs.com">
+    Available through many school CS courses. Open any HTML project in CodeHS, replace its contents with the launcher code, and run the preview. See `methods/codehs.html` in the repository for a pre-configured wrapper.
+  </Card>
+  <Card title="Code.org Editor" icon="puzzle-piece" href="https://code.org">
+    The Code.org HTML/CSS environment supports pasting custom HTML. The repository includes `methods/code-org.html` and `methods/code-org-v2.html` as ready-to-use wrappers for this platform.
+  </Card>
+</CardGroup>
+
+<Note>
+  The repository's `methods/` folder also contains `pear.html` — a wrapper for running the launcher inside a **Pear Deck** code embed, which some teachers use as an in-class coding activity surface.
+</Note>
+
+## Step-by-Step: W3Schools TryIt
+
+<Steps>
+  <Step title="Get the single-file.html source">
+    Open `single-file.html` in the CXSHS repository (or its raw view on GitHub) and copy the **entire contents** of the file — from the opening `<!DOCTYPE html>` tag to the closing `</html>` tag. This is version 1.4.3.1 of the standalone launcher.
+  </Step>
+  <Step title="Open W3Schools TryIt">
+    Navigate to [https://www.w3schools.com/html/tryit.asp](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) in a new browser tab.
+  </Step>
+  <Step title="Replace the existing code">
+    Click anywhere inside the left editor pane, press **Ctrl + A** to select all of the default HTML, and delete it. Paste the `single-file.html` source you copied in Step 1.
+  </Step>
+  <Step title="Click Run It">
+    Press the **Run It** button at the top of the page. The CXSHS Game Hub launcher will load in the right-hand preview pane.
+  </Step>
+  <Step title="Load and play a game">
+    Use the launcher's interface to select a game from the list. Because `single-file.html` includes JSZip support, you can also load a zipped collection of game files directly through the launcher's file import controls.
+  </Step>
+</Steps>
+
+<Tip>
+  After copying the `single-file.html` source, paste it into a **Google Doc**, **OneNote notebook**, or **Google Keep note** and save it. Next time you need it, you can copy it from your notes in seconds rather than re-opening the repository — especially useful if the repository URL is blocked on your school network.
+</Tip>
+
+## Using file-input.html Instead
+
+If you only want to run a single game file rather than the full launcher, `file-input.html` is a lighter alternative to paste into the editor.
+
+<Note>
+  `file-input.html` provides a minimal drag-and-drop runner. Once pasted and run in the editor, you can drag any `.html` game file onto the drop zone, use the file picker, or paste raw game HTML into the textarea and click **Run HTML**. It is smaller than `single-file.html`, making it faster to copy and paste in environments where the editor has a character limit.
+</Note>
+
+See the [File Input guide](/methods/file-input) for full details on `file-input.html`'s features and controls.
+
+## Platform-Specific Notes
+
+<Accordion title="CodeHS — using the built-in HTML environment">
+  In CodeHS, open or create an HTML project. Delete the starter `index.html` content and paste the launcher source. Click the **Run** button in the top toolbar. The preview panel on the right will display the game hub. The repository includes `methods/codehs.html` as a pre-tested wrapper you can use directly.
+</Accordion>
+
+<Accordion title="Code.org — HTML/CSS mode">
+  In Code.org's HTML/CSS App Lab, switch to the HTML file tab. Replace the default markup with the launcher code. Press **Run**. Two wrapper files are included in the repository — `methods/code-org.html` (original) and `methods/code-org-v2.html` (updated version) — which account for Code.org's iframe sandboxing constraints.
+</Accordion>
+
+<Accordion title="Codecademy — exercise environment">
+  Navigate to any Codecademy HTML exercise that shows an editable code pane with a live preview. Replace all existing code in the pane with the launcher source. The preview area renders the full game hub. No account upgrade is required for this to work.
+</Accordion>

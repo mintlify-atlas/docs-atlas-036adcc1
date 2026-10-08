@@ -1,0 +1,91 @@
+---
+title: "Save Favorites and Track Recent Games"
+sidebarTitle: "Favorites & Recent"
+description: "Star any game to save it as a favorite, and let the hub automatically track your recently played games — all stored locally in your browser."
+---
+
+CXSHS Game Hub keeps track of the games you care about in two ways: a manual favorites list you build by starring games, and an automatic recently played history that updates every time you launch a game. Both lists are stored in `localStorage` under the keys `gl-favs` and `gl-recent`, which means they persist across browser sessions without any account or server — as long as you keep your browser data intact.
+
+## Favorites
+
+Favorites give you a curated shortlist of games you can return to without scrolling through the full 352-game grid.
+
+### Adding and Removing Favorites
+
+<Steps>
+  <Step title="Star a game from the library grid">
+    In the Games library, hover over any game tile to reveal the **star button** (★) in its top-right corner. Click the star to add the game to your favorites. The star turns gold and glows to confirm the selection. Click it again to remove the game from favorites.
+  </Step>
+  <Step title="Favorite a game while playing">
+    When a game is open in the Play view, the **favorite star button** appears in the main toolbar at the top of the screen. Click it to toggle the current game's favorite status without leaving the game. The star in the toolbar turns gold when the game is favorited.
+  </Step>
+  <Step title="View your favorites">
+    In the Games library, click the **Favorites** tab in the pill-style tab row beneath the search bar. The grid filters to show only your starred games. The tab label displays a live count so you always know how many favorites you have saved.
+  </Step>
+</Steps>
+
+### How Favorites Are Stored
+
+Favorites are tracked using a JavaScript `Set` named `favs`. Each entry is the lowercase filename of the game (for example, `slope.html`). When you toggle a favorite, the set is serialized to a JSON array and written to `localStorage`:
+
+```js
+// Internally the hub serializes the Set like this:
+localStorage.setItem('gl-favs', JSON.stringify([...favs]));
+```
+
+On every page load, the hub restores the set:
+
+```js
+favs = new Set(JSON.parse(localStorage.getItem('gl-favs') || '[]'));
+```
+
+This means favorites are tied to the specific browser and device where they were created. They are not synced across devices.
+
+## Recent Games
+
+The hub automatically records every game you launch, giving you a quick way to jump back into something you were playing earlier.
+
+### How the Recent List Works
+
+Each time you click a game tile to play it, the game's ID is prepended to the `recent` array and the array is trimmed to the last **30 entries**. If the game was already in the list, the old entry is removed first so each game appears only once, always at the top:
+
+```js
+recent = [g.id, ...recent.filter(x => x !== g.id)].slice(0, 30);
+```
+
+### Viewing Recent Games
+
+Click the **Recent** tab in the Games library's tab row to filter the grid to only the games you have played. Games are ordered by most recently played — the last game you launched appears first. The tab label shows how many of your recent games are still present in the loaded library.
+
+<Tabs>
+  <Tab title="All Games">
+    The default view shows every game in the library. Sort and search apply across the full catalog.
+  </Tab>
+  <Tab title="Favorites">
+    Shows only games you have starred. The star on each tile remains lit so you can quickly unstar games from this view.
+  </Tab>
+  <Tab title="Recent">
+    Shows the games you have played, ordered from most recent to least recent. The order is fixed in this tab — the A–Z / Z–A sort control does not reorder the recent list.
+  </Tab>
+</Tabs>
+
+## Persistence and Clearing Data
+
+<Note>
+  Favorites and recent history are stored entirely in your browser's `localStorage`. If you clear your browser's site data, cookies, or storage for the page that hosts `index.html`, both lists will be permanently deleted. There is no cloud backup or export feature — if you want to keep your favorites, avoid clearing storage for this site.
+</Note>
+
+<Accordion title="What else is stored in localStorage?">
+  Beyond favorites and recent history, the hub stores the following keys in `localStorage`:
+
+  | Key | Contents |
+  |---|---|
+  | `gl-favs` | JSON array of favorited game IDs |
+  | `gl-recent` | JSON array of recently played game IDs (up to 30) |
+  | `gl-list` | Cached game file list from `games.json` or the GitHub API |
+  | `gl-theme` | Selected UI theme (e.g. `halloween`, `teal`, `green`) |
+  | `gl-calm` | Effects/animation preference (`1` = off, `0` = on) |
+  | `gl-notes` | Contents of the built-in Notes app |
+  | `gl-links` | Custom shortcut links added via the Add a Link app |
+  | `gl-uid` | Anonymous user ID used for the online presence counter |
+</Accordion>

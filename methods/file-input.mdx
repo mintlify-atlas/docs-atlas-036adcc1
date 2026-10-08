@@ -1,0 +1,97 @@
+---
+title: "Load and Run HTML Game Files with File Input"
+sidebarTitle: "File Input"
+description: "Use file-input.html to drag, drop, pick, or paste any offline game HTML file and run it instantly in a full-page browser iframe."
+---
+
+`file-input.html` is a minimal, single-page drag-and-drop runner that lets you load any `.htm` or `.html` game file and play it inside a full-page browser iframe — no server, no build step, and no configuration. It is deliberately lightweight: the entire file is self-contained with no external dependencies, so it can be pasted into an online code editor, opened directly via `file://`, or shared as a standalone file just like the games themselves.
+
+## What file-input.html Does
+
+When opened, `file-input.html` displays a centered panel with a dashed drop zone, a textarea for pasting raw HTML, and a **Run HTML** button. Once you load a game, the panel disappears and the game fills the entire browser viewport. A small **F** button (fixed to the top-left corner) lets you push the game into fullscreen at any time.
+
+Under the hood, files loaded via drag-and-drop or the file picker are read using the browser's `FileReader` API and written directly into an iframe via `document.write`. If `document.write` is unavailable (for example, inside a sandboxed online editor), the runner automatically falls back to the iframe's `srcdoc` attribute, so the game still loads correctly.
+
+## When to Use This Method
+
+<CardGroup cols={2}>
+  <Card title="You have game files saved locally" icon="folder-open">
+    You've downloaded individual games from the `offline/` folder and want a quick way to run them without setting up the full hub launcher.
+  </Card>
+  <Card title="file:// is blocked but an editor is available" icon="ban">
+    Your browser blocks direct `file://` access, but you can paste HTML into an online code editor. Run `file-input.html` in the editor, then paste or drop individual game files into it.
+  </Card>
+  <Card title="You want a lighter paste than single-file.html" icon="feather">
+    `file-input.html` is much smaller than `single-file.html`, making it faster to copy and paste into editors with character or load-time constraints.
+  </Card>
+  <Card title="You want to run one specific game quickly" icon="gamepad">
+    Load a single game by filename rather than browsing the full 352-game launcher interface. Useful for sharing a specific title with a friend.
+  </Card>
+</CardGroup>
+
+## Three Ways to Load a Game
+
+### 1. Drag and Drop
+
+Drag any `.html` or `.htm` game file from your file manager and drop it directly onto the dashed drop zone. The zone highlights when a valid drag is detected, and the game loads immediately on release.
+
+### 2. File Picker
+
+Click anywhere inside the dashed drop zone to open your browser's native file picker. The picker is filtered to `.htm` and `.html` files. Select a game file and confirm — the runner loads it the same way as a drag-and-drop.
+
+### 3. Paste Raw HTML
+
+If you have the raw source of a game file (copied from an editor, GitHub raw view, or another tab), paste it into the textarea labelled **"Or paste HTML code here…"** and click the **Run HTML** button. This works even when file access is completely restricted, since the content never leaves the browser.
+
+```html
+<!-- Example: paste a game's full source into the textarea, then click Run HTML -->
+<!DOCTYPE html>
+<html>
+  <head><title>My Game</title></head>
+  <body>
+    <!-- self-contained game content -->
+  </body>
+</html>
+```
+
+## Fullscreen Mode
+
+After a game loads, a small button labelled **F** appears fixed to the top-left corner of the page. Clicking it calls the browser's Fullscreen API on the game iframe, expanding the game to fill your entire screen. The runner supports `requestFullscreen`, `webkitRequestFullscreen` (Safari/older Chrome), and `msRequestFullscreen` (legacy Edge) for broad compatibility.
+
+<Note>
+  The fullscreen button is hidden until a game is loaded — it only becomes visible once the panel disappears and the iframe is active. If your browser blocks fullscreen requests (some school policies do), the game still plays at full viewport size even without true fullscreen.
+</Note>
+
+## Using file-input.html in a Restricted Environment
+
+Because `file-input.html` is itself a self-contained HTML file, you can run it inside any online code editor the same way you would run `single-file.html`.
+
+<Steps>
+  <Step title="Copy the file-input.html source">
+    Open `file-input.html` from the repository and copy its entire contents — it starts with `<!--Place in a code editor.-->` as a reminder that this is exactly what it is designed for.
+  </Step>
+  <Step title="Paste into your code editor">
+    Open [W3Schools TryIt](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default), Codecademy, CodeHS, or Code.org. Select all default code in the editor pane and replace it with the `file-input.html` source.
+  </Step>
+  <Step title="Click Run">
+    Click the editor's **Run** or **Run It** button. The drop zone panel will appear in the preview pane.
+  </Step>
+  <Step title="Load a game">
+    You can now drag a game file onto the drop zone (if the editor preview supports file drops), or — more reliably in sandboxed editors — copy the raw source of a game from the `offline/` folder and paste it into the textarea, then click **Run HTML**.
+  </Step>
+</Steps>
+
+<Tip>
+  **Combine methods for maximum flexibility:** paste `file-input.html` into W3Schools TryIt, then open any game file from the repository in a separate browser tab (raw view), copy all of its HTML, and paste it into the `file-input.html` textarea. Click **Run HTML** — the game launches instantly inside the editor preview. This works entirely in-browser with no downloads and no `file://` access required.
+</Tip>
+
+## Comparison: file-input.html vs single-file.html
+
+| Feature | `file-input.html` | `single-file.html` (v1.4.3.1) |
+|---|---|---|
+| Full 352-game launcher UI | ✗ | ✓ |
+| Drag-and-drop individual files | ✓ | ✓ |
+| Paste raw HTML to run | ✓ | ✗ |
+| JSZip support for .zip collections | ✗ | ✓ |
+| File size (paste complexity) | Very small | Larger |
+| Best for | Single game, quick load | Full hub experience |

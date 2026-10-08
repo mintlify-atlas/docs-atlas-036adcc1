@@ -1,0 +1,102 @@
+---
+title: "Idle and Clicker Games in CXSHS Game Hub"
+sidebarTitle: "Idle & Clicker"
+description: "Explore idle and clicker games in CXSHS Game Hub — Cookie Clicker, Idle Breakout, Idle Dice, Capybara Clicker, Learn to Fly Idle, and more."
+---
+
+Idle and clicker games occupy a special corner of the CXSHS Game Hub. They reward patience and long-term thinking rather than reflexes, generating satisfying numbers that compound over time with minimal active input. All titles in this section run entirely offline as self-contained HTML files — open one in a Hub tab, let your production scale up, and switch to another game while it runs. When you return, your numbers have grown.
+
+## Core Idle & Clicker Titles
+
+<CardGroup cols={2}>
+  <Card title="Cookie Clicker" icon="cookie">
+    The game that defined the idle genre. Click the giant cookie to generate cookies, then invest in grandmas, farms, factories, banks, temples, and antimatter condensers to push your cookies-per-second into the billions. Full prestige system included. — `cookie-clicker.htm`
+  </Card>
+  <Card title="Idle Breakout" icon="brick">
+    Combines idle mechanics with Breakout-style brick destruction. Earn gold from breaking bricks, buy automated balls, upgrade their power, and watch increasingly durable bricks shatter without touching the keyboard. — `idle-breakout.html`
+  </Card>
+  <Card title="Idle Dice" icon="dice">
+    Roll dice to accumulate points, unlock better dice, and build automated rolling chains. Ascending layers of combinatorial upgrades keep the numbers scaling indefinitely. — `idle-dice.html`
+  </Card>
+  <Card title="Spacebar Clicker" icon="keyboard">
+    A stripped-down clicker focused entirely on one question: how many times can you hit the spacebar? Tracks your best session count and lifetime total. Deceptively competitive. — `spacebar-clicker.html`
+  </Card>
+  <Card title="Capybara Clicker" icon="paw">
+    Click to multiply capybaras, then unlock upgrades that passively generate more of them. A charming idle game built around everyone's favorite semi-aquatic rodent. — `capybara-clicker.html`
+  </Card>
+  <Card title="Learn to Fly Idle" icon="bird">
+    The idle spinoff of the Learn to Fly series. Automate your penguin's rocket-assisted launch training and watch distance records shatter themselves while you watch. — `learn-to-fly-idle.html`
+  </Card>
+</CardGroup>
+
+## Idle-Adjacent: Games with Idle Elements
+
+Some games in the Hub aren't pure idle titles but share the same long-session, gradual-progression loop that idle fans enjoy.
+
+<CardGroup cols={2}>
+  <Card title="Backrooms" icon="door-open">
+    First-person atmospheric exploration of the Backrooms. The slow, ambient navigation and the creeping sense of progression through identical rooms creates an idle-like meditative experience. — `backrooms.html`
+  </Card>
+  <Card title="Tiny Fishing" icon="fish">
+    Cast your rod, reel in fish, sell your catch, and upgrade your gear to reach deeper waters with more valuable fish. Each fishing run is short but the upgrade loop is deeply satisfying. — `tiny-fishing.html`
+  </Card>
+  <Card title="Motherload" icon="pick">
+    Drill deeper into a procedurally generated planet's crust, selling ore to buy better drills, fuel tanks, and hull upgrades. The satisfaction of buying one more upgrade before the fuel runs out is quintessential idle design. — `motherload.html`
+  </Card>
+  <Card title="Pou" icon="face-smile">
+    Virtual pet game — feed Pou to grow it, play mini-games to earn coins, and use coins to unlock food, potions, and accessories. The ongoing care loop mirrors idle game rhythms. — `pou.html`
+  </Card>
+  <Card title="Monkey Mart" icon="store">
+    Manage a monkey-run supermarket — harvest, stock, and serve customers. Station upgrades automate more of the loop over time, creating a clicker-style escalating-income feel. — `monkey-mart.htm`
+  </Card>
+  <Card title="Noob Miner" icon="pickaxe">
+    Mining idle game — dig, sell ore, upgrade tools, and descend further into a procedural mine. — `noob-miner.html`
+  </Card>
+</CardGroup>
+
+## Progression-Heavy Action Games
+
+These titles reward repeated runs and persistent upgrades in ways that parallel the idle genre's core loop.
+
+<CardGroup cols={2}>
+  <Card title="Learn to Fly" icon="bird">
+    Launch a penguin into the sky and use earned distance money to upgrade your glider, rocket, and launch ramp. — `learn-to-fly.html`
+  </Card>
+  <Card title="Learn to Fly 2" icon="bird">
+    Adds a broader vehicle selection and achievement system to the launch-upgrade loop. — `learn-to-fly-2.html`
+  </Card>
+  <Card title="Learn to Fly 3" icon="bird">
+    Fully 3D launch sequences with a stage-based upgrade tree. — `learn-to-fly-3.html`
+  </Card>
+  <Card title="Burrito Bison: Launcha Libre" icon="person-running">
+    Launch Burrito Bison out of a wrestling ring to smash gummy bears, earning cash to upgrade speed, bounce, and special moves. — `burrito-bison-launcha-libre.html`
+  </Card>
+  <Card title="Earn to Die" icon="car">
+    Drive a zombie-crushing vehicle as far as possible, spending earned cash on car upgrades to cover more distance each run. — `earn-to-die.html`
+  </Card>
+  <Card title="Earn to Die 2" icon="car">
+    Expanded map, more vehicles, and a broader upgrade tree for the same run-and-upgrade loop. — `earn-to-die-2.html`
+  </Card>
+</CardGroup>
+
+## How Idle Games Work in the Hub
+
+<Tabs>
+  <Tab title="Playing in a Tab">
+    CXSHS Game Hub's tabbed interface (`index.html`) lets you keep idle games running in a background tab while you play something else in the foreground. Open Cookie Clicker or Idle Breakout in one tab, then navigate to any other game in a second tab. The idle tab continues processing in the browser as long as the Hub window stays open.
+  </Tab>
+  <Tab title="Direct File Access">
+    If you open an idle game's HTML file directly in a browser tab (e.g., `offline/cookie-clicker.htm`), it will run independently of the Hub. You can have the Hub open in one window and the idle game running in a separate browser window simultaneously.
+  </Tab>
+  <Tab title="Save Persistence">
+    All idle games in the Hub store their save data in the browser's `localStorage` tied to the file's origin. Saves persist between browser restarts as long as you don't clear site data. Opening the same file from two different paths (via Hub vs. direct) may result in separate save slots since the origin URL differs.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Use the Hub's built-in **Notes** app (accessible from the rail navigation in `index.html`) to log your Cookie Clicker prestige milestones, Idle Breakout ball configurations, or Idle Dice strategy notes. Notes persist in `localStorage` independently of the game saves, so your planning context stays available whenever you return.
+</Tip>
+
+<Info>
+  **Cookie Clicker** (`cookie-clicker.htm`) uses a `.htm` extension rather than `.html` — make sure to open the exact filename if launching it directly from the `offline/` directory rather than through the Hub launcher.
+</Info>

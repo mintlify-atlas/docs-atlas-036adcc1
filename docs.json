@@ -1,72 +1,89 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "CXSHS Game Hub",
+  "theme": "almond",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "primary": "#7B3FA0",
+    "light": "#C084E8",
+    "dark": "#3B1060"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@mintlify.com"
-      }
-    ],
     "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "type": "github",
+      "href": "https://github.com/cash90954-gif/cxshgmz"
     }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/cash90954-gif/cxshgmz"
     }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "game-hub"
+            ]
+          },
+          {
+            "group": "Playing Games",
+            "pages": [
+              "playing/overview",
+              "playing/offline-games",
+              "playing/favorites-and-recent",
+              "playing/search-and-sort"
+            ]
+          },
+          {
+            "group": "Restricted Environments",
+            "pages": [
+              "methods/overview",
+              "methods/chromeos",
+              "methods/code-editors",
+              "methods/file-input"
+            ]
+          },
+          {
+            "group": "Built-in Tools",
+            "pages": [
+              "tools/epic-viewer",
+              "tools/single-file",
+              "tools/inline-tools",
+              "tools/chunks-splitter"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "customization/themes",
+              "customization/settings",
+              "customization/contributing"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Game Library",
+        "groups": [
+          {
+            "group": "Game Catalog",
+            "pages": [
+              "games/overview",
+              "games/action-arcade",
+              "games/puzzle-strategy",
+              "games/sports",
+              "games/classics",
+              "games/idle-clicker"
+            ]
+          }
+        ]
+      }
+    ]
   }
 }

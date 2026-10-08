@@ -1,0 +1,115 @@
+---
+title: "Split Large HTML Files into Chunks with chunks.py"
+sidebarTitle: "Chunks Splitter"
+description: "chunks.py is a Python 3 utility that splits any large HTML file into N equal plain-text parts for transfer across size-limited platforms and reassembly on the other end."
+---
+
+`chunks.py` is a small Python 3 script that reads a single large HTML file and splits it into a configurable number of plain-text parts — `part_1.txt`, `part_2.txt`, and so on. It exists to solve a practical problem in restricted school environments: file-size upload limits, paste-buffer caps in online code editors, and email attachment restrictions all become irrelevant when a 5 MB game file can be split into three manageable 1.7 MB pieces and reassembled at the destination.
+
+## How It Works
+
+The script reads the target file as UTF-8 text, calculates an equal chunk size (with a one-character remainder absorbed into the last part when the file length is not evenly divisible), and writes each chunk to a numbered `.txt` file in the same directory. The splits are purely textual — no compression, no encoding — so reassembly is as simple as concatenating the files in order.
+
+```python chunks.py
+filename = "Your file name.html"
+num_parts = 3  
+
+with open(filename, 'r', encoding='utf-8') as file:
+    html = file.read()
+
+chunk_size = len(html) // num_parts + (1 if len(html) % num_parts != 0 else 0)
+
+for i in range(0, len(html), chunk_size):
+    part = html[i:i+chunk_size]
+    with open(f"part_{i//chunk_size + 1}.txt", "w", encoding='utf-8') as f:
+        f.write(part)
+```
+
+The two variables at the top are the only ones you ever need to change:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `filename` | `"Your file name.html"` | Path to the HTML file you want to split |
+| `num_parts` | `3` | Number of equal parts to produce |
+
+## Step-by-Step Usage
+
+<Steps>
+  <Step title="Open chunks.py in a text editor">
+    Find `chunks.py` in the root of the CXSHS Game Hub repository and open it in any text editor — Notepad, VS Code, or even the online editor in your school's coding platform.
+  </Step>
+  <Step title="Set the filename">
+    Change the `filename` variable on line 1 to the name of your HTML file. The file must be in the same directory as `chunks.py`, or you can supply a relative or absolute path.
+
+    ```python
+    filename = "slope.html"
+    ```
+  </Step>
+  <Step title="Set the number of parts">
+    Change `num_parts` to however many pieces you need. Three parts works well for most game files; increase it if your destination has a lower per-file size limit.
+
+    ```python
+    num_parts = 3
+    ```
+  </Step>
+  <Step title="Run the script">
+    Open a terminal in the same folder and run:
+
+    ```bash
+    python chunks.py
+    ```
+
+    Python 3 is required. The script completes silently and writes the output files immediately.
+  </Step>
+  <Step title="Verify the output files">
+    Three (or more) files appear in the same directory:
+
+    ```
+    part_1.txt
+    part_2.txt
+    part_3.txt
+    ```
+
+    Each is roughly one-third of the original file's character count.
+  </Step>
+  <Step title="Transfer the parts">
+    Move each `part_N.txt` file to the destination device using whatever channel is available — email, shared drive, USB stick, or pasting the text content into an online scratchpad one file at a time.
+  </Step>
+  <Step title="Reassemble at the destination">
+    To reassemble manually: open a text editor, paste the contents of `part_1.txt`, immediately followed by `part_2.txt`, then `part_3.txt` — no spaces, no newlines between them. Save the combined text as `slope.html` (or the original filename). Open it in a browser to confirm it works.
+  </Step>
+</Steps>
+
+<Warning>
+  Do not add any characters between parts when reassembling. A stray newline or space inserted between chunks will corrupt the HTML and prevent the file from running correctly.
+</Warning>
+
+## Using Chunks with Epic Viewer
+
+Reassembling parts in a text editor is not always possible in a locked-down environment. Epic Viewer's **Chunk Mode** is the zero-reassembly alternative:
+
+<Steps>
+  <Step title="Split the file with chunks.py">
+    Run `chunks.py` to produce `part_1.txt`, `part_2.txt`, and `part_3.txt` as described above.
+  </Step>
+  <Step title="Open Epic Viewer">
+    Open `epicviewer.htm` in your browser (or paste it into an online code editor environment that supports full HTML execution).
+  </Step>
+  <Step title="Enable Chunk Mode">
+    Check the **Chunk Mode** checkbox in the Epic Viewer header. The **Add Chunk** button becomes active.
+  </Step>
+  <Step title="Paste and queue each part">
+    Paste the contents of `part_1.txt` into the textarea and click **Add Chunk**. Then paste `part_2.txt` and click **Add Chunk** again. Repeat for every part except the last.
+  </Step>
+  <Step title="Paste the final part and run">
+    Paste `part_3.txt` into the textarea (without clicking Add Chunk) and click **Run**. Epic Viewer joins all queued chunks with the textarea content and renders the full HTML in the preview iframe — no file system access needed.
+  </Step>
+</Steps>
+
+<Tip>
+  Pair `chunks.py` with Epic Viewer's Chunk Mode to run split games in restricted code-editor environments without ever reassembling the file. Split on one device, paste chunks one at a time into Epic Viewer on the restricted device, and hit **Run**.
+</Tip>
+
+## Works with Any HTML File
+
+`chunks.py` is not specific to the games in the `offline/` folder. You can use it to split any HTML file — pages converted with the inline tools, custom projects, or even `single-file.html` itself. As long as the file is valid UTF-8 text, the script will handle it correctly.

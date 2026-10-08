@@ -1,0 +1,90 @@
+---
+title: "Inline Tools: Convert Web Pages to Offline HTML Files"
+sidebarTitle: "Inline Tools"
+description: "Nine utilities for converting online pages or multi-file projects into single self-contained HTML files — the same format used by all 352 games in the offline/ folder."
+---
+
+The `inline-tools/` folder contains nine utilities — HTML tools you open in a browser, JavaScript helpers, and a Python script — that convert online web pages or multi-file local projects into single self-contained HTML files. The output format is exactly the same as the individual game files in the `offline/` folder: one `.html` file with all CSS, JavaScript, images, and fonts inlined as data URIs, requiring no internet connection and no companion files to run.
+
+## Tools at a Glance
+
+<CardGroup cols={2}>
+  <Card title="full_inliner.html" icon="globe">
+    The primary inlining tool. Fetches an online page by URL and rewrites it so that all external CSS stylesheets, JavaScript files, and images are replaced with inline data URIs. The result is a fully self-contained HTML file you can save and open offline.
+  </Card>
+  <Card title="html-to-offline.html" icon="file-code">
+    Takes an existing local HTML file (one that still references external assets) and converts it to offline format. Open the tool in your browser, select your local HTML file, and it inlines all referenced local assets for you.
+  </Card>
+  <Card title="blob.html" icon="circle-dot">
+    A blob-based inliner variant. Instead of data URIs, this tool wraps assets in `Blob` URLs — useful when data URI size limits in older browsers would otherwise truncate large assets.
+  </Card>
+  <Card title="blob-compressed.html" icon="file-zipper">
+    Combines blob-based inlining with compression. Assets are compressed before being stored as blobs, producing smaller output files — handy for large games or asset-heavy pages.
+  </Card>
+  <Card title="blob-online.html" icon="cloud-arrow-down">
+    Fetches remote resources and stores them as blobs rather than data URIs. Use this when you want to inline a live online resource using the blob approach instead of raw base64 encoding.
+  </Card>
+  <Card title="compressed.html" icon="minimize">
+    A data-URI inliner that applies compression to the final output. Produces a compressed single-file HTML — smaller than the plain data-URI approach, useful when file-size constraints are tight.
+  </Card>
+  <Card title="convertfilestodatauris.py" icon="python">
+    A Python 3 script that walks an entire directory and converts every file found into a data URI, ready for embedding. Run it against a project folder to batch-process all assets at once.
+  </Card>
+  <Card title="dataURI.js" icon="js">
+    A JavaScript utility module for generating data URIs from file or blob inputs. Used as a helper by the HTML tools; can also be imported into your own scripts.
+  </Card>
+  <Card title="rewriteurl2.js" icon="link">
+    A URL-rewriting helper that fixes relative asset paths after inlining. When an inlined page still contains broken relative references, this script rewrites them to point to the correct inlined equivalents.
+  </Card>
+</CardGroup>
+
+## Using the HTML Tools
+
+<Steps>
+  <Step title="Open the tool in your browser">
+    Double-click any `.html` file in `inline-tools/` to open it, or drag it onto an open browser tab. The tool's own UI will guide you — no server or installation needed.
+  </Step>
+  <Step title="Provide a URL or file">
+    Depending on the tool, either paste the URL of the online page you want to capture, or use the file-picker to select a local HTML file. Follow the on-screen instructions displayed inside the tool.
+  </Step>
+  <Step title="Trigger the conversion">
+    Click the tool's convert/inline/fetch button. The tool fetches or reads all referenced assets, encodes them, and rewrites the HTML document in memory.
+  </Step>
+  <Step title="Save the output">
+    Once the conversion is complete, use the tool's save or download button to write the output as a `.html` file to your downloads folder. The saved file is fully self-contained.
+  </Step>
+  <Step title="Test offline">
+    Disconnect from the internet (or switch to airplane mode), open the saved file in your browser, and confirm everything loads correctly. If any assets are missing, run the file through `html-to-offline.html` again or use `rewriteurl2.js` to fix remaining path issues.
+  </Step>
+</Steps>
+
+## Using the Python Script
+
+`convertfilestodatauris.py` processes a whole folder of files at once — useful when you have a game or web app spread across many assets.
+
+```bash
+# Run from inside inline-tools/ or pass the full path
+python convertfilestodatauris.py
+```
+
+<Steps>
+  <Step title="Place the script next to your project folder">
+    Copy `convertfilestodatauris.py` into the same directory that contains the project folder you want to convert, or adjust the target path inside the script.
+  </Step>
+  <Step title="Set the target directory">
+    Open the script in a text editor and set the target directory variable to the folder you want to process (e.g., `"my-game/"`).
+  </Step>
+  <Step title="Run with Python 3">
+    Execute `python convertfilestodatauris.py` in your terminal. The script iterates over all files in the target directory and outputs their data-URI representations, ready to paste into your HTML.
+  </Step>
+</Steps>
+
+## Output Size Trade-offs
+
+<Note>
+  Inlining assets produces significantly larger HTML files than the originals. A page with 2 MB of images can become a 3–4 MB single HTML file once base64-encoded. This is the same trade-off made by every game in the `offline/` folder — it is intentional, because one large file is easier to transfer and run in restricted environments than a folder of many small files.
+</Note>
+
+<Tip>
+  Use the inline tools to create your own offline game files or to preserve a favourite web-based game for offline use with CXSHS Game Hub. Once converted, drop the output `.html` file into the `offline/` folder and it will appear alongside the built-in games.
+</Tip>

@@ -1,0 +1,128 @@
+---
+title: "Themes and Visual Customization in CXSHS Game Hub"
+sidebarTitle: "Themes"
+description: "Choose from 8 hand-crafted color themes, switch with an animated ripple, and persist your pick across sessions via localStorage."
+---
+
+CXSHS Game Hub ships with eight carefully crafted visual themes that control every color surface in the interface — from the background and navigation rail to accent highlights, tab chrome, and ambient particle effects. Themes are applied instantly via a CSS `data-theme` attribute on `<html>`, persisted to `localStorage` under the key `gl-theme`, and restored automatically on every page load. Switching themes triggers a full-screen ripple animation that spreads outward from the point of your click, making the change feel fluid rather than abrupt.
+
+## Switching Themes
+
+<Steps>
+  <Step title="Open Settings">
+    Click the **Settings** icon (sliders icon) near the bottom of the left navigation rail, or navigate to **All Apps → Settings** from the launcher home screen.
+  </Step>
+  <Step title="Find the Theme picker">
+    The Settings panel opens to a **Theme** section at the top. Each theme is shown as a small preview swatch with the `cxshs` wordmark tinted in that theme's accent color.
+  </Step>
+  <Step title="Click a theme">
+    Click any theme button. The `themeWipe()` function fires immediately — a radial ripple in the theme's accent color expands from your cursor across the whole screen while `setTheme()` swaps the `data-theme` attribute and writes the new ID to `localStorage['gl-theme']`.
+  </Step>
+  <Step title="Your choice is saved">
+    On the next visit the hub reads `localStorage.getItem('gl-theme')` in an inline `<script>` tag before the page finishes parsing, so the correct theme is applied before the first paint — no flash of the wrong theme.
+  </Step>
+</Steps>
+
+## The 8 Themes
+
+<Tabs>
+  <Tab title="Classic Halloween">
+    **ID:** `halloween` &nbsp;·&nbsp; **Default theme**
+
+    Background `#09050e` — deep near-black with a purple tint. Accent `#ff7a18` — vivid pumpkin orange. This is the only theme that activates the full suite of seasonal decorations:
+
+    - 🦇 **Bat animations** — bats fly across the screen on page load and when navigating
+    - 🔥 **Ember particles** — glowing orange/purple embers drift upward on the canvas
+    - 🕸️ **Spider web** and 🌕 **moon** elements rendered in the corner
+    - 🎃 **Halloween countdown** displayed in the Clock app (days until October 31)
+    - A screen-shake and burst-particle boot sequence on first load
+    - The favicon changes to the seasonal pumpkin icon; all other themes show a colored circle
+
+    All Halloween-exclusive elements are hidden via `html:not([data-theme="halloween"]) :is(.moon,.web,.fog,#vig)` — switching away removes them entirely without a page reload.
+  </Tab>
+  <Tab title="Cherry">
+    **ID:** `cherry` &nbsp;·&nbsp; **Labeled "New UI"**
+
+    Background `#090307` — deep maroon-black. Accent `#f05a7e` — vivid rose-red. This is the CSS `:root` fallback, meaning it loads before any JavaScript runs. Warm pink-red text and soft rose subtext give the interface a refined, high-contrast look. Cherry is a good daily-driver for those who want color without the Halloween extras.
+  </Tab>
+  <Tab title="Pink">
+    **ID:** `pink`
+
+    Background `#0c050a` — deep cool-dark. Accent `#ff6eb9` — bright bubblegum pink. Softer and more pastel than Cherry, with rose-tinted panel surfaces (`--pn: 30,11,22`) and a pink-hued subtext color. Particle effects recolor to pink tones when effects are enabled.
+  </Tab>
+  <Tab title="Teal">
+    **ID:** `teal`
+
+    Background `#030b0c` — near-black with a cool aqua undertone. Accent `#26d0c4` — bright teal-cyan. Panel surfaces pick up a dark ocean-green tint. Text (`#e4faf8`) leans slightly blue-white, making this one of the highest-contrast themes for readability under fluorescent lighting.
+  </Tab>
+  <Tab title="Green">
+    **ID:** `green`
+
+    Background `#040a05` — forest black. Accent `#4ad668` — vivid lime-green. Sub-colors (`--subc: #a6f0b4`, `--gold: #b8f58a`) keep everything in a cohesive green family. Suitable for users who want a terminal/hacker aesthetic without sacrificing the hub's polished UI.
+  </Tab>
+  <Tab title="Blue">
+    **ID:** `blue`
+
+    Background `#03070e` — deep midnight blue. Accent `#4a8cff` — electric cobalt blue. Panel fills use navy tones and text is a cool ice-white (`#e8f0ff`). The spotlight and particle effects recolor to cyan-blue, giving the hub a sci-fi aesthetic.
+  </Tab>
+  <Tab title="Purple">
+    **ID:** `purple`
+
+    Background `#07040d` — deep indigo-black. Accent `#a46cff` — rich violet. The sidebar highlight (`--sb: #3a2370`) and panel colors stay in deep purple families, and wisp particles (`--wisp: #7aa8ff`) add a cool-blue contrast to the warm purple accents.
+  </Tab>
+  <Tab title="Black">
+    **ID:** `black`
+
+    Background `#000000` — pure black. Accent `#f2f2f2` — near-white. This is the most minimal theme: all colors are monochromatic grays, there are no tinted surfaces, and ambient particles render in white. Ideal for OLED screens or maximum performance with effects enabled.
+  </Tab>
+</Tabs>
+
+## The Theme Wipe Animation
+
+When you click a theme button, `themeWipe(e, accentColor)` creates a temporary `<div class="wipe">` positioned at your exact cursor coordinates. A CSS keyframe expands a radial gradient — filled with the new theme's accent color — from a single point to cover the entire viewport over ~1 second, then removes itself. A particle burst (`gburst`) fires at the same coordinates simultaneously.
+
+```js
+function themeWipe(e, col) {
+  if (calmMode) return;
+  const w = document.createElement('div');
+  w.className = 'wipe';
+  w.style.setProperty('--x', e.clientX + 'px');
+  w.style.setProperty('--y', e.clientY + 'px');
+  w.style.background =
+    'radial-gradient(circle,' + col + ',' + col + '66 55%,transparent 72%)';
+  document.body.append(w);
+  setTimeout(() => w.remove(), 1000);
+  window.gburst && gburst(e.clientX, e.clientY, 30);
+}
+```
+
+<Note>
+  The wipe animation is skipped entirely when **Effects** are disabled (calm mode). Switching themes still works — only the visual transition is suppressed.
+</Note>
+
+## Halloween-Only Features
+
+<CardGroup cols={2}>
+  <Card title="Seasonal Decorations" icon="ghost">
+    Moon, spider web, fog layer, and vignette overlay render only when `data-theme="halloween"`. They are unconditionally hidden via CSS for every other theme.
+  </Card>
+  <Card title="Ember & Bat Particles" icon="wand-magic-sparkles">
+    The canvas particle system uses a special orange/purple color palette (`255,122,24` / `154,99,255`) on Halloween. Other themes derive particle colors dynamically from their accent hex value.
+  </Card>
+  <Card title="Boot Sequence" icon="bolt">
+    On Halloween, page load triggers a screen shake, 7 bats flying across the screen, and a large particle burst. Other themes use a gentler pulse-and-burst sequence.
+  </Card>
+  <Card title="Halloween Countdown" icon="calendar">
+    The Clock app shows a live countdown in days to October 31. On Halloween itself it displays "Happy Halloween!" This widget is hidden for all other themes.
+  </Card>
+</CardGroup>
+
+## Effects Toggle
+
+Every ambient animation (embers, bats, fog, particle bursts, the spotlight that follows your cursor, and the theme wipe ripple) is governed by a single `calmMode` flag. Toggle it in **Settings → Effects** or via the spark icon button in the left rail.
+
+The preference is saved to `localStorage['gl-calm']`. If no preference has been set yet, the hub auto-detects `prefers-reduced-motion: reduce` from the OS and defaults to calm mode for users who have requested reduced motion at the system level.
+
+<Tip>
+  Developers who want to set the starting theme programmatically can write directly to `localStorage` before the page loads. Set `localStorage.setItem('gl-theme', 'blue')` in a browser extension or injected script and the hub will apply that theme on the very first paint — the inline script at the top of `<head>` reads this key before any CSS or JS bundle executes. Valid IDs are: `cherry`, `pink`, `teal`, `green`, `blue`, `purple`, `black`, `halloween`.
+</Tip>

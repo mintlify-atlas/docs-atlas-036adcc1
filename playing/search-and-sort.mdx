@@ -1,0 +1,98 @@
+---
+title: "Search and Sort the CXSHS Game Library"
+sidebarTitle: "Search & Sort"
+description: "Filter 352 games in real time with the search bar, sort A–Z or Z–A, jump to a random game instantly, or use the / shortcut to search from anywhere."
+---
+
+Finding a specific game among 352 titles is fast because the CXSHS Game Hub filters results as you type — there is no submit button and no loading delay. The same search logic powers both the full-page Games library and the search bar on the Home screen, so you can reach any game without ever opening the library view first.
+
+## Search Bar in the Games Library
+
+The **Search games** input (`id="q"`) sits at the top of the Games library view, to the right of the "Games" heading. Every keystroke triggers an `oninput` handler that immediately re-evaluates which tiles are visible:
+
+```js
+// The hub filters tiles on every keystroke
+$('q').oninput = apply;
+```
+
+The filter is case-insensitive and matches anywhere in the game name — typing `run` will surface `Temple Run 2`, `Tunnel Rush`, `Subway Surfers`, and any other title containing those letters. The tile count in the top-right corner of the library updates in real time to show how many results are visible (for example, `14 of 352`).
+
+Search works within whichever library tab is active. If you are on the **Favorites** tab and type a query, only your favorited games that match the query are shown — the same `apply()` function handles both the tab filter and the search filter simultaneously.
+
+## Home Page Search Bar
+
+The Home screen has its own search bar centered below the CXSHS logo. Submitting a search from the home page (`id="hs"`) sets a `pendingQ` value and navigates directly to the Games library, where the query is automatically placed into the library search field:
+
+```js
+$('hs').onsubmit = e => {
+  e.preventDefault();
+  pendingQ = $('hq').value.trim();
+  nav({ k: 'games' }, orig({ currentTarget: $('hs') }));
+};
+```
+
+This means you can search for a game from the home page and land directly in the filtered library without any extra steps.
+
+## Keyboard Shortcut: `/` to Focus Search
+
+Press the `/` key anywhere in the hub — on the Home screen, in the Games library, in a built-in app, or even while viewing the Settings page — to instantly focus the search bar for the current context:
+
+- In the **Games library**, `/` focuses the library search input (`#q`).
+- On the **Home screen**, `/` focuses the home search bar (`#hq`).
+- On any other view, the shortcut has no effect (so it does not interfere with games that use `/` as a key binding).
+
+```js
+addEventListener('keydown', e => {
+  if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(
+    (document.activeElement || {}).tagName || ''
+  )) {
+    const el = curView === 'lib' ? $('q')
+             : curView === 'home' ? $('hq')
+             : null;
+    if (el) { e.preventDefault(); el.focus(); }
+  }
+});
+```
+
+<Tip>
+  The `/` shortcut is the fastest way to find a game. Press `/`, start typing the game name, then press **Enter** or click the matching tile — the whole flow takes about two seconds.
+</Tip>
+
+## Sort Options
+
+The **Sort** dropdown (`id="sort"`) in the library toolbar controls the order of all visible tiles. Two options are available:
+
+| Option | Behavior |
+|--------|----------|
+| **A to Z** (default) | Games are sorted alphabetically by display name in ascending order, using a locale-aware comparison with numeric sorting enabled — so `Bloons TD 2` appears before `Bloons TD 5`. |
+| **Z to A** | Reverses the alphabetical order. The most recently named games appear first. |
+
+Sort interacts with the active tab: on the **All** and **Favorites** tabs, tiles are reordered according to the dropdown. On the **Recent** tab, tiles are always ordered by play time (most recent first) regardless of the sort setting, because the recent order is controlled by the `recent[]` array index rather than the sort direction.
+
+## Random Game Buttons
+
+There are two ways to launch a random game instantly — one in the Games library and one on the Home screen.
+
+<CardGroup cols={2}>
+  <Card title="Random Button (Library)" icon="shuffle">
+    The **Random** button in the library toolbar (`id="rand"`) picks a random game from the currently **visible** tiles — meaning it respects your active search query and tab filter. If you are on the Favorites tab with 12 games starred, Random picks one of those 12. If you have a search query active, Random picks from the matching results only.
+  </Card>
+  <Card title="Play Something Random (Home)" icon="ghost">
+    The **Play something random** chip on the Home screen (`id="lucky"`) picks from the full game list, regardless of any filters. It is the quickest way to discover a game you have never tried. If games are still loading when you click it, the hub shows a brief toast: *"Games are still loading."*
+  </Card>
+</CardGroup>
+
+## Address Bar Navigation
+
+The address bar at the top of the hub doubles as a search and navigation field. You can type a game name directly into it and press Enter to navigate straight to that game's Play view — no library required:
+
+```
+cxshs://games/slope          → Opens Slope
+cxshs://games/friday-night-funkin  → Opens Friday Night Funkin'
+```
+
+If the exact game name is not matched, the hub treats your input as a search query, opens the Games library, and pre-fills the search box with whatever you typed.
+
+<Info>
+  The address bar also accepts shorthand destinations: typing `games` navigates to the library, `home` returns to the Home screen, and app names like `music`, `notes`, `clock`, and `settings` open those built-in apps directly.
+</Info>

@@ -1,0 +1,122 @@
+---
+title: "Contribute Games and Improvements to CXSHS Game Hub"
+sidebarTitle: "Contributing"
+description: "Request a new game via GitHub Issues or submit a fully self-contained offline HTML file as a pull request to the 352-game library."
+---
+
+CXSHS Game Hub is a community-driven collection, and there are two supported paths to growing the library: opening a **Game Request** issue on GitHub so a maintainer can add it, or submitting a **pull request** yourself with a ready-made offline HTML file. Both routes are welcome — the choice depends on whether you have the technical ability to package a game into a single self-contained file.
+
+---
+
+## Requesting a Game
+
+If you'd like a game added but don't want to package it yourself, open a GitHub Issue using the **Game Request** template.
+
+<Steps>
+  <Step title="Go to the Issues tab">
+    Navigate to the [CXSHS Game Hub repository](https://github.com/cash90954-gif/cxshgmz) on GitHub and click the **Issues** tab.
+  </Step>
+  <Step title="Click New Issue">
+    Click the **New issue** button. Select the **Game Request** template from the list of available templates.
+  </Step>
+  <Step title="Fill in the fields">
+    The template has two fields:
+
+    - **Game name(s)** — the name of the game or games you want added (required)
+    - **Game link(s)** — a URL where the game can be found, such as a CrazyGames or itch.io page (optional but helpful)
+  </Step>
+  <Step title="Submit the issue">
+    Review the rules below before submitting, then click **Submit new issue**. A maintainer will evaluate and add it to the queue.
+  </Step>
+</Steps>
+
+### Game Request Rules
+
+Before submitting, make sure the game meets all four criteria:
+
+<Warning>
+  Issues that violate these rules will be closed without being added to the library.
+
+  1. **No paid indie games.** Free-to-play browser games only. Commercially distributed titles that require a purchase are not eligible.
+  2. **No online multiplayer games.** All games in the hub must run fully offline. Games that require a live server connection for multiplayer cannot be packaged as self-contained HTML files.
+  3. **Must be somewhat popular.** Niche or completely unknown games are unlikely to be accepted. Well-known browser games, classics, and widely recognized titles are prioritized.
+  4. **No FNF (Friday Night Funkin') mods.** The base game and its official builds are already covered. Custom FNF mod requests will be closed.
+</Warning>
+
+---
+
+## Submitting a Game via Pull Request
+
+If you can package a game yourself, you can contribute directly by adding the offline HTML file and opening a pull request.
+
+<Steps>
+  <Step title="Fork the repository">
+    Fork [cash90954-gif/cxshgmz](https://github.com/cash90954-gif/cxshgmz) on GitHub and clone your fork locally.
+  </Step>
+  <Step title="Create the offline HTML file">
+    The game must be a **fully self-contained single HTML file** — every asset (images, scripts, fonts, audio, WASM) must be inlined as a data URI or embedded directly. The file must load and play with no internet connection and no external requests.
+
+    Use the tools in the `inline-tools/` directory to help with this process (see below).
+  </Step>
+  <Step title="Name and place the file correctly">
+    Drop the finished file into the `offline/` directory. Use **lowercase with hyphens** matching the game's common name:
+
+    ```
+    offline/slope.html
+    offline/geometry-dash.html
+    offline/cookie-clicker.html
+    ```
+
+    Avoid version numbers, special characters, or abbreviations unless the game is universally known by that name.
+  </Step>
+  <Step title="Open a pull request">
+    Push your branch to your fork and open a pull request against the `main` branch of the upstream repository. Include the game's name and a brief note about its source in the PR description.
+  </Step>
+</Steps>
+
+---
+
+## Packaging Games with inline-tools
+
+The `inline-tools/` directory contains nine utilities designed specifically to convert live web games into offline single-file HTML documents. Choose the tool that matches your starting material:
+
+<CardGroup cols={2}>
+  <Card title="html-to-offline.html" icon="file-code">
+    Browser-based tool — open it locally, paste a URL or HTML source, and it fetches and inlines all external resources into a single file. Best starting point for most games.
+  </Card>
+  <Card title="full_inliner.html" icon="circle-nodes">
+    More aggressive inliner that handles complex asset graphs. Useful for games with many nested stylesheets and scripts that simpler tools miss.
+  </Card>
+  <Card title="blob.html / blob-online.html" icon="cloud-arrow-down">
+    Blob-based variants that create object URL–wrapped output. `blob-online.html` fetches live assets; `blob-compressed.html` adds compression.
+  </Card>
+  <Card title="compressed.html" icon="file-zipper">
+    Produces a compressed version of the inlined output using built-in browser compression APIs. Useful for games where file size would otherwise exceed practical limits.
+  </Card>
+  <Card title="dataURI.js / convertfilestodatauris.py" icon="terminal">
+    Command-line helpers. `dataURI.js` (Node.js) and `convertfilestodatauris.py` (Python) convert local asset files to base64 data URIs for embedding directly in HTML source.
+  </Card>
+  <Card title="rewriteurl2.js" icon="arrows-rotate">
+    Node.js script that rewrites all `src` and `href` attributes in an HTML file to point to inlined data URIs. Run it on a downloaded game folder to prepare it for inlining.
+  </Card>
+</CardGroup>
+
+<Tip>
+  Start with `html-to-offline.html` — open it in your browser, paste in the game's URL, and let it attempt an automatic inline. If the result is incomplete (blank screen, missing assets), try `full_inliner.html` or use `rewriteurl2.js` on a locally downloaded copy of the game folder. For very large games, `chunks.py` in the project root can split the resulting file into smaller pieces for easier handling.
+</Tip>
+
+---
+
+## Contribution Checklist
+
+Use this checklist before opening a pull request:
+
+<Accordion title="Before submitting, confirm all of the following">
+  - [ ] The HTML file is fully self-contained — no external network requests at runtime
+  - [ ] The game loads and is playable with your browser's network connection disabled (Airplane mode test)
+  - [ ] The file is placed in `offline/` with a lowercase-hyphenated filename
+  - [ ] The game is free to play and not a paid indie title
+  - [ ] The game does not require online multiplayer infrastructure
+  - [ ] The game is not an FNF mod
+  - [ ] File size is reasonable — extremely large files (multi-hundred MB) may be rejected
+</Accordion>

@@ -1,0 +1,87 @@
+---
+title: "single-file.html: Standalone Offline Game Launcher"
+sidebarTitle: "Single File"
+description: "single-file.html (v1.4.3.1) is a self-contained game launcher with JSZip support — paste it into any HTML editor or open it offline without downloading the full repo."
+---
+
+`single-file.html` (version 1.4.3.1) is a standalone alternative to the full CXSHS Game Hub launcher. Everything the launcher needs — its UI, styles, and the JSZip 3.10.1 library — is bundled inside a single HTML file. You can open it directly in a browser, paste its entire source into an online code editor, or share it as a single attachment. It is the recommended starting point whenever downloading the full repository is impractical.
+
+## When to Use single-file.html
+
+<CardGroup cols={2}>
+  <Card title="Code-Editor Environments" icon="laptop-code">
+    Paste the file's source into W3Schools TryIt, Codecademy, CodeHS, or any HTML preview environment. The entire launcher boots from the pasted code with no external dependencies.
+  </Card>
+  <Card title="Chromebook & Restricted Devices" icon="lock">
+    On devices where installing apps or accessing the file system is blocked, `single-file.html` runs entirely in the browser tab with no OS-level permissions required.
+  </Card>
+  <Card title="Lightweight Starting Point" icon="feather">
+    When you only want the launcher UI without cloning all 352 game files, start with `single-file.html` and import only the games you want via zip.
+  </Card>
+  <Card title="Easy Sharing" icon="share-nodes">
+    Send a single HTML file over email, chat, or a USB stick. The recipient needs only a browser — no unzipping, no folder structure to maintain.
+  </Card>
+</CardGroup>
+
+## Features
+
+<Accordion title="Button Grid with Cover Images">
+  Games appear as 200 × 200 px tile buttons arranged in a wrapping flex grid. Each tile displays a cover image (or a fallback question-mark SVG when no cover is available), the game title in bold white text with a black text shadow for readability, and a white 4 px border with a slight border-radius. Hovering a tile darkens it to `#1f1f1f`.
+</Accordion>
+
+<Accordion title="Falling Button Animation">
+  When a game is launched, its tile plays a CSS keyframe animation that translates it downward with a random horizontal drift and rotation, fading to 0.3 opacity as it falls off the bottom of the viewport — a visual cue that the game is opening.
+</Accordion>
+
+<Accordion title="JSZip 3.10.1 Import">
+  JSZip is inlined directly in the file. Use the import button to select a `.zip` archive containing HTML game files — the launcher reads the archive in-browser and adds each game as a new tile without any server or build step.
+</Accordion>
+
+<Accordion title="Blacklist Panel">
+  A floating panel lets you enter game names to hide from the grid. The panel is toggled via the top-right controls and persists your blacklist so the same games stay hidden across sessions.
+</Accordion>
+
+<Accordion title="Dark Theme">
+  The launcher uses a deep navy/black background (`#01061c` for the body, `#030c36` for the top bar) with all text and UI elements in white — designed to be unobtrusive and easy on the eyes in low-light environments.
+</Accordion>
+
+## How to Use
+
+<Steps>
+  <Step title="Open the file">
+    Open `single-file.html` in any modern browser by double-clicking it, or paste its full source into the HTML editor of an online playground such as W3Schools TryIt, CodeHS, or Codecademy.
+  </Step>
+  <Step title="Browse the game grid">
+    The launcher renders a grid of game tiles. Scroll down to see all available games. The tile count and storage usage are shown at the top of the page.
+  </Step>
+  <Step title="Launch a game">
+    Click any game tile. The game opens in an inline frame or new context — depending on how the launcher is configured — and the tile plays its falling animation.
+  </Step>
+  <Step title="Import additional games from a zip">
+    Click the import button (top area of the launcher), select a `.zip` file containing one or more HTML game files, and confirm. JSZip reads the archive and injects the new games as additional tiles in the grid.
+  </Step>
+  <Step title="Hide games with the Blacklist">
+    Open the blacklist panel from the top-right controls, enter the exact names of games you want to hide, and save. Those tiles are removed from the visible grid until you remove them from the list.
+  </Step>
+</Steps>
+
+<Note>
+  `single-file.html` is the recommended launcher for Chromebook users and anyone working inside a code-editor-based environment. See the ChromeOS methods guide and the Code Editors methods guide for device-specific setup steps.
+</Note>
+
+<Tip>
+  The entire source of `single-file.html` can be pasted verbatim into W3Schools TryIt Editor, Codecademy's built-in preview, CodeHS, or any environment that renders HTML in a live preview pane — no file upload required.
+</Tip>
+
+## Comparison: single-file.html vs. index.html
+
+| Feature | `single-file.html` | `index.html` (full hub) |
+|---|---|---|
+| Requires repo download | No | Yes (352 game files) |
+| Paste into online editor | ✅ | ❌ |
+| 8 visual themes | ❌ | ✅ |
+| Rail navigation | ❌ | ✅ |
+| Built-in apps | ❌ | ✅ |
+| JSZip import | ✅ | — |
+| Blacklist panel | ✅ | — |
+| Version | v1.4.3.1 | — |

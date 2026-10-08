@@ -1,0 +1,102 @@
+---
+title: "Run Offline Games on ChromeOS and Chromebooks"
+sidebarTitle: "ChromeOS"
+description: "Four methods to run CXSHS offline games on a managed Chromebook: online editors, Google Drive transfer, Dropbox, and file:// fallback."
+---
+
+Managed school Chromebooks impose some of the tightest restrictions of any platform — Chrome extensions are often blocked, the Linux environment is disabled, and downloading executables is prevented. Despite this, CXSHS Game Hub games are plain HTML files, and plain HTML files can always be run in a browser one way or another. The four methods below cover every common Chromebook restriction scenario, from the simplest (paste code, click Run) to the most thorough (transfer the full 352-game collection via Google Drive).
+
+## Method 1 — Online Code Editor (Easiest)
+
+If you can open a browser tab, you can play. Paste the source of `single-file.html` into an online HTML editor and click Run — no downloads, no installs, no permissions needed.
+
+**Supported editors:**
+- [W3Schools TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
+- [Codecademy HTML Editor](https://www.codecademy.com/courses/learn-html-fundamentals/lessons/intro-to-html/exercises/intro)
+
+<Steps>
+  <Step title="Get the code">
+    Open `single-file.html` from the repository (or its raw GitHub view) and copy the entire contents.
+  </Step>
+  <Step title="Open the editor">
+    Navigate to the W3Schools TryIt link or the Codecademy exercise link above in a new tab.
+  </Step>
+  <Step title="Replace the default code">
+    Select all of the existing placeholder HTML in the editor pane and delete it, then paste the `single-file.html` code.
+  </Step>
+  <Step title="Click Run">
+    Press the **Run It** button (W3Schools) or the equivalent run control in Codecademy. The CXSHS Game Hub launcher will appear in the right-hand preview pane.
+  </Step>
+</Steps>
+
+<Tip>
+  Copy the `single-file.html` source into a **Google Doc** (use Format → Plain Text) so you can paste it again in seconds on any future session without re-opening the repository.
+</Tip>
+
+---
+
+## Method 2 — Google Drive + `file://` (When the CDN is Blocked)
+
+If the repository website is blocked but your Chromebook can still open local files via `file://`, transfer the whole collection through Google Drive.
+
+<Steps>
+  <Step title="Download the repository ZIP on another device">
+    On a phone, home computer, or any unblocked device, download the repository as a ZIP file. This typically takes 10–30 minutes depending on connection speed.
+  </Step>
+  <Step title="Upload the ZIP to Google Drive">
+    Sign in to Google Drive using the same Google account that is linked to your Chromebook, then upload the ZIP. Large uploads can take up to 20 minutes on slower connections.
+  </Step>
+  <Step title="Open the Files app on your Chromebook">
+    Press the **Launcher** key (bottom-left circle) and open the **Files** app from the app grid.
+  </Step>
+  <Step title="Switch to the Google Drive tab">
+    In the Files app left panel, click **Google Drive**. Your uploaded ZIP should appear after a short sync.
+  </Step>
+  <Step title="Extract the ZIP">
+    Right-click the ZIP file and select **Extract all** (or **Extract**). ChromeOS will unpack it into a folder in the same location.
+  </Step>
+  <Step title="Open the game files">
+    Browse into the extracted folder, then double-click any game `.html` file — ChromeOS will open it in the Chrome browser via `file://`, running the game with no network connection required.
+  </Step>
+</Steps>
+
+---
+
+## Method 3 — When `file://` is Also Blocked
+
+Some stricter Chromebook policies block `file://` URLs in Chrome. In that case, fall back to pasting the runner code directly into an online code editor.
+
+1. Open [W3Schools TryIt](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) or another supported editor.
+2. Paste the full contents of **`file-input.html`** (for a drag-and-drop loader) or **`single-file.html`** (for the full launcher) into the editor and click Run.
+3. With `file-input.html` running, drag individual game HTML files onto the drop zone, or paste their raw source into the textarea and click **Run HTML**.
+
+<Note>
+  `file-input.html` is smaller and simpler than `single-file.html`, making it faster to paste and reload. Use it when you only want to run one or two specific games rather than the full launcher.
+</Note>
+
+<Tip>
+  Store the code for `file-input.html` and `single-file.html` in a **Google Doc** so you can copy-paste them in future sessions without accessing the repository again. Use **Format → Plain text** in Google Docs to prevent the smart-quote substitution that would break the HTML.
+</Tip>
+
+---
+
+## Method 4 — Download Directly from Dropbox (Skip the Transfer)
+
+If transferring files through Google Drive is impractical, the full game collection is also available in three parts on Dropbox. You can download each part directly to your Chromebook's local storage without involving another device.
+
+The three Dropbox download links are provided in the repository's ChromeOS guide (`methods/chromeOS.md`). Open that file in the repository to find the current Part 1, Part 2, and Part 3 links.
+
+<Info>
+  The collection is split into three parts to stay within Dropbox's per-folder size limits. Download all three parts, then extract and combine them to get the full 352-game library.
+</Info>
+
+---
+
+## Method Comparison
+
+| Scenario | Recommended Method |
+|---|---|
+| No downloads allowed, have a browser tab | Method 1 — Online code editor |
+| CDN blocked, but `file://` works | Method 2 — Google Drive transfer |
+| Both CDN and `file://` are blocked | Method 3 — Paste into code editor |
+| Want to skip device-to-device transfer | Method 4 — Dropbox download |

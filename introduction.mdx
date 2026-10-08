@@ -1,0 +1,51 @@
+---
+title: "CXSHS Game Hub: Play 352 Offline HTML Games Anywhere"
+sidebarTitle: "Introduction"
+description: "CXSHS Game Hub is a curated collection of 352 self-contained offline HTML games wrapped in a polished browser-style launcher. No internet, no installs."
+---
+
+CXSHS Game Hub is a curated collection of 352 fully self-contained HTML games paired with a polished browser-style launcher. Every game lives in a single `.html` file inside the `offline/` folder — open it and it runs completely on-device with zero network requests, zero accounts, and zero installs required. Whether you're on a school Chromebook with restricted internet, a classroom computer without Wi-Fi, or simply want a reliable local arcade, the hub has you covered.
+
+## Why it exists
+
+Many school networks block game sites, throttle bandwidth, or require sign-ins that students don't have. CXSHS Game Hub sidesteps all of that. Because every game asset (graphics, audio, scripts) is inlined directly into its HTML file, the browser never needs to reach out to the internet. The launcher itself — `index.html` — is equally self-contained: tabbed browsing, search, favorites, a music player, notes, a clock, and eight color themes all work completely offline.
+
+## How the collection is packaged
+
+<CardGroup cols={2}>
+  <Card title="Full repo download" icon="folder-open">
+    Downloading or cloning the repository gives you all 352 games in the `offline/` folder alongside `index.html`. The launcher auto-discovers every game file and presents them in a searchable, sortable grid. This is the richest experience but the download is large because every game has its assets fully inlined.
+  </Card>
+  <Card title="single-file.html (v1.4.3.1)" icon="file-code">
+    A lighter standalone launcher that does not bundle any game files. Instead it lets you fetch games from the web or import individual `.html` files from your device. Ideal for code editors, restricted environments, or situations where downloading the full repository isn't practical.
+  </Card>
+</CardGroup>
+
+## Key facts
+
+- **352 games** — action, puzzle, arcade, and more, each a single self-contained `.html` file.
+- **No internet required** — every asset is inlined; games work fully offline once downloaded.
+- **No installs or accounts** — just open `index.html` (or `single-file.html`) in any modern browser.
+- **Cross-platform** — runs on Windows, macOS, Linux, and ChromeOS in any up-to-date browser.
+- **Restricted-environment friendly** — designed specifically to work where typical game sites are blocked.
+
+<Note>
+  Students on managed Chromebooks have an additional guide in `methods/chromeOS.md` that covers environment-specific workarounds for running the hub on school-issued devices.
+</Note>
+
+## Explore the hub
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Download the repo, open the launcher, and be playing a game in minutes.
+  </Card>
+  <Card title="Game Hub Interface" icon="layout-dashboard" href="/game-hub">
+    A deep-dive into the tabbed UI, rail navigation, built-in apps, and themes.
+  </Card>
+  <Card title="Methods & Environments" icon="school" href="/methods/overview">
+    Guides for running CXSHS Game Hub on Chromebooks and other restricted setups.
+  </Card>
+  <Card title="Games Library" icon="gamepad-2" href="/games/overview">
+    Browse the full catalogue of 352 offline games and learn how the library grid works.
+  </Card>
+</CardGroup>

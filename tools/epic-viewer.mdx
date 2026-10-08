@@ -1,0 +1,108 @@
+---
+title: "Epic Viewer: Browser-Based HTML Code Editor and Runner"
+sidebarTitle: "Epic Viewer"
+description: "Write, run, and save HTML snippets directly in the browser. Epic Viewer stores code persistently via IndexedDB with live iframe preview and chunk mode support."
+---
+
+Epic Viewer (`epicviewer.htm`) is a fully self-contained, single-file HTML code editor and live runner that requires no server, no installation, and no internet connection. Open the file in any modern browser and you immediately get a three-panel workspace: a sidebar of saved snippets, a monospace textarea editor, and a live preview iframe — all wired together with IndexedDB-backed persistence so your work survives browser restarts.
+
+## Interface Layout
+
+Epic Viewer is divided into three main regions plus a top control bar.
+
+<CardGroup cols={2}>
+  <Card title="Header Controls" icon="sliders">
+    Contains the snippet name input, **Run**, **Save**, **Clear**, **Chunk Mode** checkbox, **Hide Editor Text** checkbox, **Add Chunk**, **Fullscreen**, and **Exit Snippet** buttons.
+  </Card>
+  <Card title="Left Sidebar" icon="bookmark">
+    Lists all snippets saved to IndexedDB for the current origin. Each entry has a load button (the snippet name) and a red **X** delete button.
+  </Card>
+  <Card title="Center Editor" icon="code">
+    A resizable monospace `<textarea>` where you type or paste HTML. Spellcheck is disabled so code is never underlined with grammar squiggles.
+  </Card>
+  <Card title="Right Preview" icon="eye">
+    An inline `<iframe>` that renders whatever HTML is fed to it via `srcdoc`. A small **B** back button appears in the corner during fullscreen mode.
+  </Card>
+</CardGroup>
+
+## Basic Workflow
+
+<Steps>
+  <Step title="Open Epic Viewer">
+    Open `epicviewer.htm` directly in your browser (double-click the file, or drag it onto an open tab). No web server is required.
+  </Step>
+  <Step title="Write or paste HTML">
+    Click inside the center textarea and type your HTML, or paste existing code. The editor supports any valid HTML including `<script>` and `<style>` tags.
+  </Step>
+  <Step title="Run the preview">
+    Click the **Run** button in the header. Your HTML is immediately rendered inside the right-hand preview iframe via `srcdoc` — no page navigation occurs.
+  </Step>
+  <Step title="Save the snippet">
+    Type a name in the **Snippet name** field (top-left of the header), then click **Save**. The snippet — including its full HTML and any queued chunks — is written to the `snippets` object store in the `codepad` IndexedDB database.
+  </Step>
+  <Step title="Reload a saved snippet">
+    Click any snippet name in the left sidebar. The preview iframe immediately re-renders that snippet. If **Hide Editor Text** is checked (the default), the textarea is cleared so the source stays out of sight; uncheck it first if you want to edit the code after loading.
+  </Step>
+  <Step title="Delete a snippet">
+    Click the red **X** button next to any saved snippet name. A confirmation dialog appears; confirm to permanently remove the entry from IndexedDB.
+  </Step>
+  <Step title="Exit a loaded snippet">
+    Click **Exit Snippet** (visible only while a snippet is active) to clear the name field, textarea, preview, and chunk queue all at once, returning to a blank slate.
+  </Step>
+</Steps>
+
+## Chunk Mode
+
+Chunk Mode is designed for situations where you need to run an HTML file that is too large to paste into a single editor session — for example, a large game file that exceeds the paste or undo-buffer limit of a restricted online code editor.
+
+<Steps>
+  <Step title="Enable Chunk Mode">
+    Check the **Chunk Mode** checkbox in the header. The **Add Chunk** button becomes active.
+  </Step>
+  <Step title="Paste the first chunk">
+    Paste the first section of your HTML into the textarea — for example, `part_1.txt` output from `chunks.py`.
+  </Step>
+  <Step title="Queue the chunk">
+    Click **Add Chunk**. An alert confirms how many chunks are now queued (e.g., "You now have 1 chunk") and the textarea is cleared, ready for the next section.
+  </Step>
+  <Step title="Add remaining chunks">
+    Paste each subsequent part and click **Add Chunk** after each one until all parts except the last are queued.
+  </Step>
+  <Step title="Paste the final chunk and run">
+    Paste the last part into the textarea (do not click Add Chunk). Click **Run** — Epic Viewer concatenates all queued chunks with the current textarea content in order and renders the combined HTML in the preview iframe.
+  </Step>
+  <Step title="Save the combined result (optional)">
+    Click **Save** to store the fully reassembled HTML as a single named snippet in IndexedDB, so you never have to chunk it again.
+  </Step>
+</Steps>
+
+<Tip>
+  Chunk Mode pairs perfectly with `chunks.py`. Split a large game file into 3 parts with the splitter, then paste each `part_N.txt` into Epic Viewer one at a time — no file system access or reassembly needed.
+</Tip>
+
+## Fullscreen Preview
+
+Click the **Fullscreen** button to expand the preview iframe so it covers the entire browser viewport (`position: fixed; top: 0; left: 0; width: 100%; height: 100%`). A small **B** button appears in the top-left corner of the fullscreen view — click it to collapse back to the normal three-panel layout without reloading.
+
+## Hide Editor Text
+
+The **Hide Editor Text** checkbox (checked by default) controls what happens when you load a saved snippet from the sidebar. When checked, the textarea is cleared after the snippet loads into the preview — the code runs visually but the source is not displayed. Uncheck this option if you want to inspect or modify a saved snippet's HTML after loading it.
+
+## IndexedDB Storage
+
+Epic Viewer uses the browser's built-in IndexedDB API for all persistence. Snippets are stored in the `codepad` database, `snippets` object store, keyed by snippet name. Each record contains:
+
+| Field | Description |
+|---|---|
+| `name` | The snippet's unique identifier (the key) |
+| `html` | The full combined HTML string |
+| `chunks` | Array of chunk strings queued at save time |
+| `combined` | Alias for the joined result — same as `html` |
+
+<Note>
+  IndexedDB storage is scoped to the **origin** — the combination of protocol, hostname, and port from which `epicviewer.htm` was opened. Snippets saved when opening the file via `file://` on one machine will not appear if you open the same file on a different machine, from a web server, or after clearing browser site data. Back up important snippets by saving them to disk before clearing your browser.
+</Note>
+
+## Keyboard and Responsive Behaviour
+
+Epic Viewer is fully responsive. On viewports narrower than 900 px the three panels stack vertically (sidebar on top, editor in the middle, preview at the bottom). On very small screens (under 500 px) the header controls also stack into a single column for easier tap access on phones and tablets.

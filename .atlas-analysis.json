@@ -1,0 +1,105 @@
+{
+  "projectType": "saas",
+  "projectName": "CXSHS Game Hub",
+  "projectDescription": "A collection of 352 self-contained offline HTML games with a full-featured browser-based hub interface, tools for running games in restricted environments, and utilities for inlining web content into single files.",
+  "theme": "almond",
+  "primaryColor": "#7B3FA0",
+  "lightColor": "#C084E8",
+  "darkColor": "#3B1060",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "game-hub"
+            ]
+          },
+          {
+            "group": "Playing Games",
+            "pages": [
+              "playing/overview",
+              "playing/offline-games",
+              "playing/favorites-and-recent",
+              "playing/search-and-sort"
+            ]
+          },
+          {
+            "group": "Restricted Environments",
+            "pages": [
+              "methods/overview",
+              "methods/chromeos",
+              "methods/code-editors",
+              "methods/file-input"
+            ]
+          },
+          {
+            "group": "Built-in Tools",
+            "pages": [
+              "tools/epic-viewer",
+              "tools/single-file",
+              "tools/inline-tools",
+              "tools/chunks-splitter"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "customization/themes",
+              "customization/settings",
+              "customization/contributing"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Game Library",
+        "groups": [
+          {
+            "group": "Game Catalog",
+            "pages": [
+              "games/overview",
+              "games/action-arcade",
+              "games/puzzle-strategy",
+              "games/sports",
+              "games/classics",
+              "games/idle-clicker"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "352 self-contained offline HTML games playable without internet",
+    "CXSHS Game Hub — a tabbed browser-style launcher with rail nav, search, and theme engine",
+    "8 visual themes (Halloween, Cherry, Pink, Teal, Green, Blue, Purple, Black) with animated transitions",
+    "Favorites, Recent, and Search/Sort within the game library",
+    "Multi-tab system (up to 8 tabs) with per-tab history and animated view transitions",
+    "Built-in apps: Music player, Notes, Clock/Stopwatch, Settings, All Apps",
+    "Epic Viewer — a browser-based HTML code editor/runner with IndexedDB snippet storage and chunk mode",
+    "File Input tool — drag-and-drop HTML file runner with fullscreen support",
+    "Single-file.html — a standalone offline game launcher with zip import support (JSZip 3.10.1)",
+    "Inline-tools collection for converting web pages to self-contained offline HTML files",
+    "chunks.py — Python utility to split large HTML files into smaller parts",
+    "Methods guides for running games on ChromeOS and through school platforms (Canvas, Code.org, CodeHS, Pear Deck)"
+  ],
+  "publicApiSurface": [
+    "index.html — main CXSHS Game Hub launcher",
+    "single-file.html — standalone offline game launcher (v1.4.3.1)",
+    "file-input.html — drag-and-drop HTML file runner",
+    "epicviewer.htm — HTML code editor/runner with IndexedDB snippet storage",
+    "offline/*.html — 352 individual self-contained offline game files",
+    "inline-tools/full_inliner.html — converts online pages to offline single-file HTML",
+    "inline-tools/html-to-offline.html — converts an existing HTML page to offline format",
+    "inline-tools/blob.html / blob-compressed.html / compressed.html — alternate inlining variants",
+    "inline-tools/convertfilestodatauris.py — Python script to convert files to Data URIs",
+    "chunks.py — splits large HTML files into numbered parts",
+    "methods/chromeOS.md — ChromeOS setup guide",
+    "methods/canvas.md — Canvas Instructure workaround guide"
+  ]
+}

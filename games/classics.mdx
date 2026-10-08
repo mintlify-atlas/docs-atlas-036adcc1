@@ -1,0 +1,158 @@
+---
+title: "Classic Browser Games in CXSHS Game Hub"
+sidebarTitle: "Classics"
+description: "Play timeless browser classics offline in CXSHS Game Hub — Pac-Man, Chess, Minesweeper, 2048, Agar.io Lite, and all eight Minecraft versions."
+---
+
+Some games transcend their era. The classics section of CXSHS Game Hub collects the titles that defined browser gaming and remain as compelling today as the day they launched — alongside several legendary games that pre-date the internet entirely but belong in every game collection. Every file in this section is fully self-contained and offline, meaning Pac-Man plays identically whether you have a network connection or not, and your Minecraft world generates locally without contacting any server.
+
+## Minecraft — All Eight Versions
+
+The CXSHS Game Hub includes eight separate Minecraft versions, covering the entire early-access period from the very first playable build through the polished 1.12 release. Two versions come in both standard JavaScript and optimized WebAssembly (WASM) builds.
+
+<Tabs>
+  <Tab title="Classic Era">
+    ### Indev
+    The earliest publicly available Minecraft build. Blocky world generation, basic survival loop, and the original inventory system that long-time fans still remember fondly. Open `Indev.html` to play.
+
+    ### Alpha 1.2.6
+    The Alpha phase introduced proper survival with hunger, multiplayer, and the first biome variety. This is the version many older players remember as their introduction to Minecraft. Open `Alpha_1.2.6.html` to play.
+
+    ### Beta 1.3
+    Beta brought improved world generation, weather effects, and the foundations of the crafting system players know today. Open `Beta_1.3.html` to play.
+  </Tab>
+  <Tab title="Release Era">
+    ### Version 1.5 — The Redstone Update
+    The Redstone Update overhauled circuit mechanics with comparators, droppers, and daylight sensors. Standard JavaScript build. — `1.5.html`
+
+    ### Version 1.8 — The Bountiful Update
+    Introduced ocean monuments, banners, armor stands, and spectator mode. Two builds are available:
+    - `1.8.html` — Standard JavaScript build
+    - `1.8_WASM.html` — WebAssembly build for significantly smoother performance
+
+    ### Version 1.12 — The World of Color Update
+    Added concrete, glazed terracotta, the advancements system, and the full color palette for blocks. The most visually complete version in the collection. Two builds are available:
+    - `1.12.html` — Standard JavaScript build
+    - `1.12_WASM.html` — WebAssembly build for significantly smoother performance
+  </Tab>
+</Tabs>
+
+<Note>
+  The **WASM builds** (`1.8_WASM.html` and `1.12_WASM.html`) compile the game engine to WebAssembly rather than JavaScript, resulting in noticeably better frame rates on most modern browsers. If your machine struggles with the standard builds, switch to the WASM variant of the same version.
+</Note>
+
+### Minecraft Version Quick Reference
+
+| File | Version | Notable Feature |
+|---|---|---|
+| `Indev.html` | Indev | Earliest playable build |
+| `Alpha_1.2.6.html` | Alpha 1.2.6 | Classic alpha survival with hunger |
+| `Beta_1.3.html` | Beta 1.3 | Weather, crafting improvements |
+| `1.5.html` | 1.5 — Redstone Update | Comparators, droppers, daylight sensors |
+| `1.8.html` | 1.8 — Bountiful Update | Ocean monuments, banners, armor stands |
+| `1.8_WASM.html` | 1.8 — Bountiful Update | WASM build — better performance |
+| `1.12.html` | 1.12 — World of Color | Concrete, terracotta, advancements |
+| `1.12_WASM.html` | 1.12 — World of Color | WASM build — better performance |
+
+## Arcade Originals
+
+<CardGroup cols={2}>
+  <Card title="Pac-Man" icon="ghost">
+    The iconic 1980 arcade maze game. Navigate Pac-Man through a maze, eat all the pellets, and avoid the four ghosts — or eat a power pellet to turn the tables. Authentic cabinet gameplay. — `pac-man.html`
+  </Card>
+  <Card title="Google Dino" icon="dinosaur">
+    The Chrome browser's built-in offline dinosaur runner. Jump over cacti and duck under pterodactyls as the speed gradually increases. — `google-dino.html`
+  </Card>
+  <Card title="Flappy Bird" icon="bird">
+    The notoriously difficult one-tap mobile game that took the world by storm. Tap to keep your bird airborne between green pipe gaps. — `flappy-bird.html`
+  </Card>
+  <Card title="Agar.io Lite" icon="circle">
+    The browser cell-eating game. Move your cell to consume smaller cells, grow larger, and absorb or evade other players in this lightweight offline adaptation. — `agar-io-lite.html`
+  </Card>
+  <Card title="Doodle Jump" icon="arrow-up">
+    Jump from platform to platform using accelerometer-style left-right movement. Avoid enemies and holes as platforms grow sparser at higher altitudes. — `doodle-jump.html`
+  </Card>
+  <Card title="Helix Jump" icon="arrow-down">
+    Drop a ball through a helix tower by rotating the structure to align the gaps. Each platform break builds your score multiplier. — `helix-jump.html`
+  </Card>
+</CardGroup>
+
+## Board Games & Puzzles
+
+<CardGroup cols={2}>
+  <Card title="Chess" icon="chess">
+    Full chess against an AI opponent or local second player. Supports standard FIDE rules with castling, en passant, and pawn promotion. — `chess.html`
+  </Card>
+  <Card title="Minesweeper" icon="bomb">
+    The classic mine-clearing grid puzzle. Left-click to reveal cells, right-click to flag mines, and use number logic to clear the board safely. — `minesweeper.html`
+  </Card>
+  <Card title="2048" icon="grid">
+    The addictive sliding tile number puzzle. Swipe tiles in four directions to merge matching numbers and reach the 2048 tile. — `2048.html`
+  </Card>
+  <Card title="2048 Cupcakes" icon="cake">
+    The same 2048 sliding mechanic with cupcake imagery replacing the numbers — a fan-favorite reskin. — `2048-cupcakes.html`
+  </Card>
+  <Card title="9007199254740992" icon="infinity">
+    An extreme 2048 variant where the target tile is JavaScript's `Number.MAX_SAFE_INTEGER` — 9,007,199,254,740,992. For those who find 2048 too easy. — `9007199254740992.html`
+  </Card>
+  <Card title="Wordle Unlimited" icon="font">
+    Guess the five-letter word in six tries using color-coded feedback. Unlimited rounds with no daily restriction — play as many words as you like. — `wordle-unlimited.html`
+  </Card>
+  <Card title="Trap the Cat" icon="cat">
+    Click hexagonal tiles to fence in a roaming cat before it escapes the board. A deceptively tricky logic puzzle. — `trap-the-cat.html`
+  </Card>
+  <Card title="Tetrominoes" icon="rectangle-vertical">
+    The Tetris formula — rotate and drop tetrominoes to complete horizontal lines before the stack reaches the top. — `tetrominoes.html`
+  </Card>
+  <Card title="Stacktris" icon="layer-group">
+    A stacking variant where you drop blocks to build the tallest, most precise tower possible. — `stacktris.html`
+  </Card>
+  <Card title="Stack" icon="layer-group">
+    A precision tower-building classic — tap to drop each block and align it perfectly with the one below. — `stack.html`
+  </Card>
+  <Card title="Bubble Shooter" icon="circle">
+    The perennial browser bubble-matching game. Aim colored bubbles to form groups of three and clear the board. — `bubble-shooter.html`
+  </Card>
+  <Card title="Candy Crush" icon="candy">
+    Match three or more candies in rows and columns to clear levels in this sugary puzzle classic. — `candy-crush.html`
+  </Card>
+</CardGroup>
+
+## Sandbox & Creative
+
+<CardGroup cols={2}>
+  <Card title="Sand Game" icon="droplet">
+    A classic falling-sand cellular automaton. Draw different materials — sand, water, fire, oil — and watch them interact with realistic physics. — `sand-game.html`
+  </Card>
+  <Card title="Sandbox City" icon="city">
+    Open-world physics sandbox with destructible city environment and freely spawnable objects. — `sandbox-city.html`
+  </Card>
+  <Card title="Little Alchemy 2" icon="flask">
+    Discover over 700 items by combining fundamental elements — earth, fire, water, air — into increasingly complex creations. — `little-alchemy-2.html`
+  </Card>
+  <Card title="Elastic Face" icon="face-smile">
+    Interactive physics toy — click and drag facial features to create deformed, elastic expressions. — `elastic-face.htm`
+  </Card>
+  <Card title="Kittytoy" icon="cat">
+    Relaxing interactive cat toy — move your cursor to play with a virtual kitten. — `kittytoy.html`
+  </Card>
+</CardGroup>
+
+## Idle Classics
+
+<CardGroup cols={2}>
+  <Card title="Cookie Clicker" icon="cookie">
+    The game that launched the idle genre. Click the giant cookie to earn cookies, then spend them on grandmas, farms, and portals to bake more cookies per second. — `cookie-clicker.htm`
+  </Card>
+  <Card title="2048 (original)" icon="grid">
+    Gabriele Cirulli's original 2048 — the sliding tile math puzzle that spread across every platform in 2014. — `2048.html`
+  </Card>
+</CardGroup>
+
+<Tip>
+  To play **Chess** against a stronger AI, most in-game difficulty settings go up to around level 5. Bump the difficulty in the settings menu before starting a new game for a more challenging match.
+</Tip>
+
+<Warning>
+  The 2048 file `9007199254740992.html` is named after JavaScript's maximum safe integer value. The goal is technically reachable but would require an astronomical number of merges — approach with appropriate expectations.
+</Warning>
