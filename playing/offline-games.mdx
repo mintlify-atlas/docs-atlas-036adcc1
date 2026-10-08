@@ -1,7 +1,7 @@
 ---
-title: "Offline Games: 352 Self-Contained HTML Files"
+title: "Offline HTML Games: All 352 Self-Contained Files Explained"
 sidebarTitle: "Offline Games"
-description: "Every game in the offline/ folder is a fully inlined HTML file — all assets encoded as data URIs — so each one runs in any browser with zero internet required."
+description: "Every game in the offline/ folder is a single HTML file with all assets inlined as data URIs, so it runs in any modern browser with zero internet required."
 ---
 
 Every game in the `offline/` directory is a single, fully self-contained HTML file. All assets — JavaScript, CSS, images, audio samples, fonts, and sprite sheets — are encoded inline as data URIs or embedded `<script>` and `<style>` blocks. Nothing is loaded from an external server at runtime. This means you can copy any individual file to a USB drive, a school Chromebook's Downloads folder, or an air-gapped device, and it will run exactly as intended in any modern browser.
@@ -28,7 +28,7 @@ You have two ways to play any offline game:
   <Tab title="Directly in your browser">
     Double-click the `.html` file in your file manager or drag it into an open browser tab. The browser opens the file using the `file://` protocol and the game starts immediately — no hub, no web server, no internet needed.
 
-    ```
+    ```bash
     # Example: open slope directly (macOS / Linux)
     open offline/slope.html
 
@@ -39,7 +39,7 @@ You have two ways to play any offline game:
   <Tab title="Through the hub (index.html)">
     Open `index.html` in your browser, wait for the games library to load, then click any tile. The hub wraps the game in an iframe so you get the full toolbar experience — back/forward navigation, favorites, tab management, and the address bar.
 
-    If the library does not load automatically, click **Choose games folder** and select the `offline/` folder. The hub reads the file list locally using the File System Access API and does not upload anything.
+    If the library does not load automatically, click **Choose games folder** and select the `offline/` folder. The hub reads the file list locally using the standard folder-picker input and does not upload anything.
   </Tab>
 </Tabs>
 
@@ -49,7 +49,7 @@ The `offline/` folder contains 352 games spanning action, puzzle, platformer, sp
 
 <CardGroup cols={2}>
   <Card title="Minecraft (Multiple Versions)" icon="cube">
-    Four versions of the classic sandbox game are included as standalone files: `Indev.html`, `Alpha_1.2.6.html`, `Beta_1.3.html`, `1.5.html`, `1.8.html`, and `1.12.html`. WebAssembly-accelerated builds are also available as `1.8_WASM.html` and `1.12_WASM.html`.
+    Eight versions of the classic sandbox game are included as standalone files: `Indev.html`, `Alpha_1.2.6.html`, `Beta_1.3.html`, `1.5.html`, `1.8.html`, and `1.12.html`. WebAssembly-accelerated builds are also available as `1.8_WASM.html` and `1.12_WASM.html`.
   </Card>
   <Card title="Slope & Slope 3" icon="chart-line">
     The legendary endless ball-rolling game (`slope.html`) and its sequel (`slope-3.html`) are both included, along with a two-player variant (`slope-2-player.html`).
@@ -81,9 +81,9 @@ Other popular titles in the collection include `bloons-TD-5.html`, `basketball-l
 Because every asset is inlined, individual game files are intentionally larger than typical web pages. A simple puzzle game might be a few hundred kilobytes; a game with audio tracks or large sprite sheets can reach several megabytes. This is expected behavior and is the direct cost of true offline portability — the entire game lives in one file.
 
 <Warning>
-  Some browsers impose a file size limit when opening local files via `file://`. If a very large game file fails to load, try opening it through a local web server or through `index.html` using the folder picker, which uses the File System Access API and avoids that limitation.
+  Some browsers impose a file size limit when opening local files via `file://`. If a very large game file fails to load, try opening it through the hub using the folder picker instead, which avoids that limitation.
 </Warning>
 
 <Tip>
-  If you only want to play a handful of games without downloading the entire repository, use `single-file.html` (v1.4.3.1). It lets you load individual offline HTML game files via a drag-and-drop interface and supports opening `.zip` archives through JSZip — no need to clone the full repo.
+  If you only want to play a handful of games without downloading the entire repository, use `single-file.html`. It lets you load individual offline HTML game files via a drag-and-drop interface and supports opening `.zip` archives through JSZip — no need to clone the full repo.
 </Tip>

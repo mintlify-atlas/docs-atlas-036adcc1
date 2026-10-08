@@ -1,7 +1,7 @@
 ---
-title: "Playing Games in CXSHS Game Hub"
+title: "How CXSHS Game Hub Loads, Displays, and Plays 352 Games"
 sidebarTitle: "Overview"
-description: "Learn how the CXSHS Game Hub loads 352 offline games, displays cover art, and lets you play any game in a tabbed browser interface."
+description: "Discover how CXSHS Game Hub loads 352 offline HTML games via games.json or the GitHub API, scans cover art, and opens each title in an isolated iframe tab."
 ---
 
 CXSHS Game Hub is a browser-style launcher that organizes 352 fully self-contained offline HTML games into a searchable, sortable grid. When you open `index.html`, the hub automatically attempts to load the game list from a local `games.json` file or the GitHub API, caching the result in `localStorage` so the library is instantly available on subsequent visits. Each game is represented by a tile showing its cover image and name, and clicking any tile opens the game in an isolated iframe within a new tab — no page reload, no internet connection required.
@@ -15,15 +15,15 @@ The hub uses a two-stage loading strategy to populate the games grid as fast as 
     On startup, `autoLoad()` checks `localStorage` for a previously cached game list stored under the key `gl-list`. If a valid cached list is found, the library grid is built immediately from that data — so returning users see games without any network round-trip.
   </Step>
   <Step title="Fetch an updated list in the background">
-    Simultaneously, the hub tries to fetch `games.json` from the same directory. If `games.json` is unavailable or returns an error, it falls back to querying the GitHub API (`/repos/{owner}/{repo}/git/trees/HEAD?recursive=1`) and filtering for files matching `offline/*.html`. The freshest list then replaces the cache in `localStorage`.
+    After the cache check, the hub tries to fetch `games.json` from the same directory. If `games.json` is unavailable or returns an error, it falls back to querying the GitHub API (`/repos/{owner}/{repo}/git/trees/HEAD?recursive=1`) and filtering for files matching `offline/*.html`. The freshest list then replaces the cache in `localStorage`.
   </Step>
   <Step title="Fall back to the folder picker">
-    If both automatic methods fail — for example when running `index.html` as a local file rather than from GitHub Pages — the hub shows a **Choose games folder** button. Clicking it invokes the browser's File System Access API (or the `<input webkitdirectory>` fallback) so you can point the hub directly at the `offline/` folder on your device.
+    If both automatic methods fail — for example when running `index.html` as a local file rather than from GitHub Pages — the hub shows a **Choose games folder** button. Clicking it opens a standard `<input webkitdirectory>` file picker so you can point the hub directly at the `offline/` folder on your device.
   </Step>
 </Steps>
 
 <Note>
-  Files matching `SKIP_FILES` (such as `single-file.html`, `file-input.html`, `epicviewer.html`, and `index.html` itself) and directories matching `SKIP_DIRS` (such as `inline-tools/`, `methods/`, and `.github/`) are automatically excluded when loading the library, so only real game files appear in the grid.
+  Files matching `SKIP_FILES` (such as `single-file.html`, `file-input.html`, `file-input-minified.html`, `epicviewer.html`, `game-launcher.html`, `launcher.html`, and `index.html` itself) and directories matching `SKIP_DIRS` (such as `inline-tools/`, `methods/`, `.github/`, and `.git/`) are automatically excluded when loading the library, so only real game files appear in the grid.
 </Note>
 
 ## Game Tiles and Cover Art
@@ -55,7 +55,7 @@ Clicking any game tile opens it in the **Play view** — a full-screen `<iframe>
 </CardGroup>
 
 <Tip>
-  Hold **Ctrl** (or **Cmd** on Mac) while clicking a game tile to open it in a new tab without leaving your current view. The hub supports up to 8 simultaneous tabs.
+  Hold **Ctrl**, **Cmd**, or **Shift** while clicking a game tile to open it in a new tab without leaving your current view. The hub supports up to 8 simultaneous tabs.
 </Tip>
 
 ## Explore More

@@ -1,7 +1,7 @@
 ---
-title: "Configure CXSHS Game Hub Settings and Preferences"
+title: "CXSHS Game Hub Settings Panel and Preferences Guide"
 sidebarTitle: "Settings"
-description: "Manage themes, toggle ambient effects, check the live online count, and access built-in apps — all from the Settings panel."
+description: "Manage color themes, toggle ambient effects, check the live online count, and launch all four built-in apps — all from the Settings panel."
 ---
 
 The Settings panel is the central place to personalize how the CXSHS Game Hub looks and behaves. From here you can swap color themes, turn off resource-intensive animations for smoother performance, and see how many other people are browsing the hub right now. Every preference you set is written to `localStorage` and restored automatically the next time you open the hub — nothing is sent to a server by default.
@@ -105,7 +105,7 @@ The hub includes four lightweight built-in apps accessible from the left rail or
     An offline audio player. Click **Choose songs** to load local audio files (MP3, OGG, etc.) from your device. Previous / Play-Pause / Next controls and a seek bar are provided. A mini-player in the address bar persists across tab switches via `BroadcastChannel`.
   </Card>
   <Card title="Add a Link" icon="link">
-    Saves a custom shortcut tile to the hub's home screen. Enter a **Name** (up to 20 characters) and a **URL** (the `https://` prefix is added automatically if omitted). The shortcut appears in the All Apps grid and opens the URL in the browser. Custom links are stored in `localStorage`.
+    Saves a custom shortcut tile to the hub's home screen. Enter a **Name** (up to 20 characters) and a **URL** (the `https://` prefix is added automatically if omitted). The shortcut appears in the All Apps grid and opens the URL in a new browser tab. An internet connection is required for linked sites to load. Custom links are stored in `localStorage`.
   </Card>
 </CardGroup>
 
